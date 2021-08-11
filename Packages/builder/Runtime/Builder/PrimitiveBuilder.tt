@@ -1,0 +1,20 @@
+﻿<#@ template language="C#" #>
+<#@ output extension=".cs" #>
+
+namespace Blob.Primitive
+{
+
+<#
+    foreach (var type in typeof(int).Assembly.GetTypes())
+    {
+        if (type.IsPrimitive)
+        {
+#>
+    public class <#= type.Name #>Builder : Blob.DefaultBuilder<<#= type #>> {}
+    public class <#= type.Name #>ArrayBuilder : Blob.ArrayBuilder<<#= type #>> {}
+<#
+        }
+    }
+#>
+
+}

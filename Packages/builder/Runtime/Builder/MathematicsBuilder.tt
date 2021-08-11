@@ -1,0 +1,37 @@
+﻿<#@ template language="C#" #>
+<#@ output extension=".cs" #>
+
+<#@ assembly name="C:/Program Files/Unity/Hub/Editor/2020.3.14f1/Editor/Data/Managed/UnityEngine/UnityEngine.CoreModule.dll" #>
+<#@ assembly name="$(SolutionDir)/Library/ScriptAssemblies/Unity.Mathematics.dll" #>
+<#@ import namespace="Unity.Mathematics" #>
+
+#if ENABLE_UNITY_MATHEMATICS
+
+namespace Blob.Mathematics
+{
+
+<#
+    foreach (var type in typeof(math).Assembly.GetTypes())
+    {
+        if (type.IsPublic && IsUnmanaged(type))
+        {
+#>
+    public class <#= type.Name #>Builder : Blob.DefaultBuilder<<#= type #>> {}
+    public class <#= type.Name #>ArrayBuilder : Blob.ArrayBuilder<<#= type #>> {}
+<#
+        }
+    }
+#>
+
+}
+
+#endif
+
+<#+
+    class U<T> where T : unmanaged { }
+    public bool IsUnmanaged(Type t)
+    {
+        try { typeof(U<>).MakeGenericType(t); return true; }
+        catch (Exception){ return false; }
+    }
+#>

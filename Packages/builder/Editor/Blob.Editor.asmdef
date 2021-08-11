@@ -1,0 +1,18 @@
+{
+    "name": "Blob.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:2128cfde978da5c44bf90b8dda521ff6"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
