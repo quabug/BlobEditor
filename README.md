@@ -1,7 +1,9 @@
 > ‼CAUTION: DO NOT use this on IL2CPP backend until [this bug](https://issuetracker.unity3d.com/issues/marshal-dot-offsetof-returns-incorrect-offset-when-building-the-project-with-il2cpp-scripting-backend) of `Marshal.OffsetOf` is fixed.
 # BlobEditor
+
+Edit `BlobAsset` in Inspector and then easily create from code.
+
 ![image](https://user-images.githubusercontent.com/683655/129061436-32d815a5-3fc6-43e5-afcf-79ed0080d4a6.png)
-Edit `BlobAsset` in Inspector and easily create from code.
 
 ## Usage
 
