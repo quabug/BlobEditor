@@ -630,6 +630,139 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1805661907
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1805661909}
+  - component: {fileID: 1805661908}
+  m_Layer: 0
+  m_Name: Example
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1805661908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1805661907}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c32608f3ea0ddca4e8e18274c2e0eab3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Blob:
+    FieldNames:
+    - Int
+    - Float3
+    - String
+    - Double2Array
+    - StringArray
+    - LongPtr
+    - Guid
+    - GameObjectName
+    Builders:
+    - id: 0
+    - id: 1
+    - id: 2
+    - id: 3
+    - id: 4
+    - id: 5
+    - id: 6
+    - id: 7
+  references:
+    version: 1
+    00000000:
+      type: {class: Int32Builder, ns: Blob.Primitive, asm: Blob.Builder}
+      data:
+        Value: 1
+    00000001:
+      type: {class: float3Builder, ns: Blob.Mathematics, asm: Blob.Builder}
+      data:
+        Value:
+          x: 2
+          y: 3
+          z: 4
+    00000002:
+      type: {class: StringBuilder, ns: Blob, asm: Blob.Builder}
+      data:
+        Value: 5555
+    00000003:
+      type: {class: double2ArrayBuilder, ns: Blob.Mathematics, asm: Blob.Builder}
+      data:
+        Value:
+        - id: 8
+        - id: 9
+    00000004:
+      type: {class: StringArrayBuilder, ns: Blob, asm: Blob.Builder}
+      data:
+        Value:
+        - id: 10
+        - id: 11
+        - id: 12
+    00000005:
+      type: {class: Int64PtrBuilder, ns: Blob.Primitive, asm: Blob.Builder}
+      data:
+        Value:
+          id: 13
+    00000006:
+      type: {class: GuidBuilder, ns: , asm: Assembly-CSharp}
+      data:
+        Guid: 44c908d7-21cd-4084-904f-fbc35408c8b2
+    00000007:
+      type: {class: ObjectName, ns: , asm: Assembly-CSharp}
+      data:
+        GameObject: {fileID: 1805661907}
+    00000008:
+      type: {class: double2Builder, ns: Blob.Mathematics, asm: Blob.Builder}
+      data:
+        Value:
+          x: 6
+          y: 7
+    00000009:
+      type: {class: double2Builder, ns: Blob.Mathematics, asm: Blob.Builder}
+      data:
+        Value:
+          x: 8
+          y: 9
+    0000000A:
+      type: {class: StringBuilder, ns: Blob, asm: Blob.Builder}
+      data:
+        Value: 000000
+    0000000B:
+      type: {class: StringBuilder, ns: Blob, asm: Blob.Builder}
+      data:
+        Value: 1111111
+    0000000C:
+      type: {class: StringBuilder, ns: Blob, asm: Blob.Builder}
+      data:
+        Value: 2222222
+    0000000D:
+      type: {class: Int64Builder, ns: Blob.Primitive, asm: Blob.Builder}
+      data:
+        Value: 33333
+--- !u!4 &1805661909
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1805661907}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2106881377
 GameObject:
   m_ObjectHideFlags: 0
