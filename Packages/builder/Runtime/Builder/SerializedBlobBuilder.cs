@@ -47,7 +47,7 @@ namespace Blob
         }
     }
 
-    [Serializable]
+    [Serializable, DefaultBuilder]
     public class StringBuilder : Builder<BlobString>
     {
         public string Value;
@@ -57,6 +57,9 @@ namespace Blob
             builder.AllocateString(ref data, Value);
         }
     }
+
+    [DefaultBuilder] public class StringArrayBuilder : ArrayBuilder<BlobString> {}
+    [DefaultBuilder] public class StringPtrBuilder : PtrBuilder<BlobString> {}
 
     [Serializable]
     public class PtrBuilder<T> : Builder<BlobPtr<T>> where T : unmanaged

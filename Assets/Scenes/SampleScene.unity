@@ -330,12 +330,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Blob:
     FieldNames:
-    - A
+    - Int
     - String
-    - B
+    - Float
     - IntArray
-    - C
-    - LongPtr
+    - Long
+    - ULongPtr
+    - StringArray
+    - UInt
+    - DoublePtr
     Builders:
     - id: 0
     - id: 1
@@ -343,6 +346,9 @@ MonoBehaviour:
     - id: 3
     - id: 4
     - id: 5
+    - id: 6
+    - id: 7
+    - id: 8
   references:
     version: 1
     00000000:
@@ -361,8 +367,8 @@ MonoBehaviour:
       type: {class: Int32ArrayBuilder, ns: Blob.Primitive, asm: Blob.Builder}
       data:
         Value:
-        - id: 6
-        - id: 7
+        - id: 9
+        - id: 10
     00000004:
       type: {class: Int64Builder, ns: Blob.Primitive, asm: Blob.Builder}
       data:
@@ -371,19 +377,51 @@ MonoBehaviour:
       type: {class: UInt64PtrBuilder, ns: Blob.Primitive, asm: Blob.Builder}
       data:
         Value:
-          id: 8
+          id: 11
     00000006:
+      type: {class: StringArrayBuilder, ns: Blob, asm: Blob.Builder}
+      data:
+        Value:
+        - id: 12
+        - id: 13
+        - id: 14
+    00000007:
+      type: {class: UInt32Builder, ns: Blob.Primitive, asm: Blob.Builder}
+      data:
+        Value: 888888
+    00000008:
+      type: {class: DoublePtrBuilder, ns: Blob.Primitive, asm: Blob.Builder}
+      data:
+        Value:
+          id: 15
+    00000009:
       type: {class: Int32Builder, ns: Blob.Primitive, asm: Blob.Builder}
       data:
         Value: 4321321
-    00000007:
+    0000000A:
       type: {class: Int32Builder, ns: Blob.Primitive, asm: Blob.Builder}
       data:
         Value: 2132131
-    00000008:
+    0000000B:
       type: {class: UInt64Builder, ns: Blob.Primitive, asm: Blob.Builder}
       data:
         Value: 22222
+    0000000C:
+      type: {class: StringBuilder, ns: Blob, asm: Blob.Builder}
+      data:
+        Value: aaaaa
+    0000000D:
+      type: {class: StringBuilder, ns: Blob, asm: Blob.Builder}
+      data:
+        Value: bbbbb
+    0000000E:
+      type: {class: StringBuilder, ns: Blob, asm: Blob.Builder}
+      data:
+        Value: ccccc
+    0000000F:
+      type: {class: DoubleBuilder, ns: Blob.Primitive, asm: Blob.Builder}
+      data:
+        Value: 473.23782
 --- !u!4 &1386176993
 Transform:
   m_ObjectHideFlags: 0
@@ -429,11 +467,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Blob:
     FieldNames:
-    - A
+    - Float3
     - String
-    - B
-    - IntArray
-    - C
+    - Bool2
+    - Int3Array
+    - Double2x2
     - Float2Ptr
     Builders:
     - id: 0
@@ -516,6 +554,82 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1645349336
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1645349338}
+  - component: {fileID: 1645349337}
+  m_Layer: 0
+  m_Name: CustomBuilder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1645349337
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1645349336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 072ba1615bdd4d0fae37f41320faa043, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Blob:
+    FieldNames:
+    - Guid
+    - StringGuid
+    - ObjectName
+    - Objects
+    Builders:
+    - id: 0
+    - id: 1
+    - id: 2
+    - id: 3
+  references:
+    version: 1
+    00000000:
+      type: {class: GuidBuilder, ns: , asm: Assembly-CSharp}
+      data:
+        Guid: 21b355e2-3862-4b81-8a62-7b0a56abd818
+    00000001:
+      type: {class: StringGuid, ns: , asm: Assembly-CSharp}
+      data:
+        Guid: 117aa6d4-b6ee-4806-9b13-ddac7ad91940
+    00000002:
+      type: {class: ObjectName, ns: , asm: Assembly-CSharp}
+      data:
+        GameObject: {fileID: 2106881377}
+    00000003:
+      type: {class: ObjectNameArray, ns: , asm: Assembly-CSharp}
+      data:
+        GameObjects:
+        - {fileID: 1386176991}
+        - {fileID: 1534642737}
+        - {fileID: 2106881377}
+        - {fileID: 1645349336}
+--- !u!4 &1645349338
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1645349336}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2106881377
 GameObject:
   m_ObjectHideFlags: 0
@@ -560,12 +674,15 @@ MonoBehaviour:
       type: {class: BlobDataBuilder, ns: , asm: Assembly-CSharp}
       data:
         FieldNames:
-        - A
+        - Int
         - String
-        - B
+        - Float
         - IntArray
-        - C
-        - LongPtr
+        - Long
+        - ULongPtr
+        - StringArray
+        - UInt
+        - DoublePtr
         Builders:
         - id: 3
         - id: 4
@@ -573,36 +690,39 @@ MonoBehaviour:
         - id: 6
         - id: 7
         - id: 8
+        - id: 9
+        - id: 10
+        - id: 11
     00000001:
       type: {class: BlobData2Builder, ns: , asm: Assembly-CSharp}
       data:
         FieldNames:
-        - A
-        - B
-        - C
-        - D
+        - Int
+        - Int2Array
+        - String
+        - Int3Ptr
         Builders:
-        - id: 9
-        - id: 10
-        - id: 11
         - id: 12
+        - id: 13
+        - id: 14
+        - id: 15
     00000002:
       type: {class: MathBlobDataBuilder, ns: , asm: Assembly-CSharp}
       data:
         FieldNames:
-        - A
+        - Float3
         - String
-        - B
-        - IntArray
-        - C
+        - Bool2
+        - Int3Array
+        - Double2x2
         - Float2Ptr
         Builders:
-        - id: 13
-        - id: 14
-        - id: 15
         - id: 16
         - id: 17
         - id: 18
+        - id: 19
+        - id: 20
+        - id: 21
     00000003:
       type: {class: Int32Builder, ns: Blob.Primitive, asm: Blob.Builder}
       data:
@@ -619,8 +739,8 @@ MonoBehaviour:
       type: {class: Int32ArrayBuilder, ns: Blob.Primitive, asm: Blob.Builder}
       data:
         Value:
-        - id: 19
-        - id: 20
+        - id: 22
+        - id: 23
     00000007:
       type: {class: Int64Builder, ns: Blob.Primitive, asm: Blob.Builder}
       data:
@@ -629,49 +749,62 @@ MonoBehaviour:
       type: {class: UInt64PtrBuilder, ns: Blob.Primitive, asm: Blob.Builder}
       data:
         Value:
-          id: 21
+          id: 24
     00000009:
+      type: {class: StringArrayBuilder, ns: Blob, asm: Blob.Builder}
+      data:
+        Value: []
+    0000000A:
+      type: {class: UInt32Builder, ns: Blob.Primitive, asm: Blob.Builder}
+      data:
+        Value: 0
+    0000000B:
+      type: {class: DoublePtrBuilder, ns: Blob.Primitive, asm: Blob.Builder}
+      data:
+        Value:
+          id: 25
+    0000000C:
       type: {class: Int32Builder, ns: Blob.Primitive, asm: Blob.Builder}
       data:
         Value: 44443333
-    0000000A:
+    0000000D:
       type: {class: int2ArrayBuilder, ns: Blob.Mathematics, asm: Blob.Builder}
       data:
         Value:
-        - id: 22
-        - id: 23
-    0000000B:
+        - id: 26
+        - id: 27
+    0000000E:
       type: {class: StringBuilder, ns: Blob, asm: Blob.Builder}
       data:
         Value: 4321321
-    0000000C:
+    0000000F:
       type: {class: int3PtrBuilder, ns: Blob.Mathematics, asm: Blob.Builder}
       data:
         Value:
-          id: 24
-    0000000D:
+          id: 28
+    00000010:
       type: {class: float3Builder, ns: Blob.Mathematics, asm: Blob.Builder}
       data:
         Value:
           x: 2
           y: 3
           z: 4
-    0000000E:
+    00000011:
       type: {class: StringBuilder, ns: Blob, asm: Blob.Builder}
       data:
         Value: ffffffffffggggggg
-    0000000F:
+    00000012:
       type: {class: bool2Builder, ns: Blob.Mathematics, asm: Blob.Builder}
       data:
         Value:
           x: 1
           y: 0
-    00000010:
+    00000013:
       type: {class: int3ArrayBuilder, ns: Blob.Mathematics, asm: Blob.Builder}
       data:
         Value:
-        - id: 25
-    00000011:
+        - id: 29
+    00000014:
       type: {class: double2x2Builder, ns: Blob.Mathematics, asm: Blob.Builder}
       data:
         Value:
@@ -681,50 +814,54 @@ MonoBehaviour:
           c1:
             x: 3
             y: 4
-    00000012:
+    00000015:
       type: {class: float2PtrBuilder, ns: Blob.Mathematics, asm: Blob.Builder}
       data:
         Value:
-          id: 26
-    00000013:
+          id: 30
+    00000016:
       type: {class: Int32Builder, ns: Blob.Primitive, asm: Blob.Builder}
       data:
         Value: 111
-    00000014:
+    00000017:
       type: {class: Int32Builder, ns: Blob.Primitive, asm: Blob.Builder}
       data:
         Value: 22222
-    00000015:
+    00000018:
       type: {class: UInt64Builder, ns: Blob.Primitive, asm: Blob.Builder}
       data:
         Value: 44443
-    00000016:
+    00000019:
+      type: {class: DoubleBuilder, ns: Blob.Primitive, asm: Blob.Builder}
+      data:
+        Value: 0
+    0000001A:
       type: {class: int2Builder, ns: Blob.Mathematics, asm: Blob.Builder}
       data:
         Value:
           x: 123
           y: 333
-    00000017:
+    0000001B:
       type: {class: int2Builder, ns: Blob.Mathematics, asm: Blob.Builder}
       data:
         Value:
           x: 22
           y: 333
-    00000018:
+    0000001C:
       type: {class: int3Builder, ns: Blob.Mathematics, asm: Blob.Builder}
       data:
         Value:
           x: 11
           y: 2
           z: 3
-    00000019:
+    0000001D:
       type: {class: int3Builder, ns: Blob.Mathematics, asm: Blob.Builder}
       data:
         Value:
           x: 4
           y: 5
           z: 6
-    0000001A:
+    0000001E:
       type: {class: float2Builder, ns: Blob.Mathematics, asm: Blob.Builder}
       data:
         Value:
