@@ -85,6 +85,9 @@ namespace Blob
             var fields = typeof(T).GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
             for (var i = 0; i < Builders.Length; i++)
             {
+#if ENABLE_IL2CPP
+#error `Marshal.OffsetOf` may not work as expected with IL2CPP backend: https://issuetracker.unity3d.com/issues/marshal-dot-offsetof-returns-incorrect-offset-when-building-the-project-with-il2cpp-scripting-backend
+#endif
                 var offset = Marshal.OffsetOf<T>(fields[i].Name).ToInt32();
                 Builders[i].Build(builder, dataPtr + offset);
             }
