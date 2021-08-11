@@ -310,7 +310,7 @@ GameObject:
   - component: {fileID: 1386176993}
   - component: {fileID: 1386176992}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Primitive
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -335,12 +335,14 @@ MonoBehaviour:
     - B
     - IntArray
     - C
+    - LongPtr
     Builders:
     - id: 0
     - id: 1
     - id: 2
     - id: 3
     - id: 4
+    - id: 5
   references:
     version: 1
     00000000:
@@ -359,20 +361,29 @@ MonoBehaviour:
       type: {class: Int32ArrayBuilder, ns: Blob.Primitive, asm: Blob.Builder}
       data:
         Value:
-        - id: 5
         - id: 6
+        - id: 7
     00000004:
       type: {class: Int64Builder, ns: Blob.Primitive, asm: Blob.Builder}
       data:
         Value: 4321321
     00000005:
-      type: {class: Int32Builder, ns: Blob.Primitive, asm: Blob.Builder}
+      type: {class: UInt64PtrBuilder, ns: Blob.Primitive, asm: Blob.Builder}
       data:
-        Value: 4321321
+        Value:
+          id: 8
     00000006:
       type: {class: Int32Builder, ns: Blob.Primitive, asm: Blob.Builder}
       data:
+        Value: 4321321
+    00000007:
+      type: {class: Int32Builder, ns: Blob.Primitive, asm: Blob.Builder}
+      data:
         Value: 2132131
+    00000008:
+      type: {class: UInt64Builder, ns: Blob.Primitive, asm: Blob.Builder}
+      data:
+        Value: 22222
 --- !u!4 &1386176993
 Transform:
   m_ObjectHideFlags: 0
@@ -398,7 +409,7 @@ GameObject:
   - component: {fileID: 1534642739}
   - component: {fileID: 1534642738}
   m_Layer: 0
-  m_Name: GameObject (1)
+  m_Name: Mathematics
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -423,12 +434,14 @@ MonoBehaviour:
     - B
     - IntArray
     - C
+    - Float2Ptr
     Builders:
     - id: 0
     - id: 1
     - id: 2
     - id: 3
     - id: 4
+    - id: 5
   references:
     version: 1
     00000000:
@@ -452,8 +465,8 @@ MonoBehaviour:
       type: {class: int3ArrayBuilder, ns: Blob.Mathematics, asm: Blob.Builder}
       data:
         Value:
-        - id: 5
         - id: 6
+        - id: 7
     00000004:
       type: {class: double2x2Builder, ns: Blob.Mathematics, asm: Blob.Builder}
       data:
@@ -465,19 +478,30 @@ MonoBehaviour:
             x: 444
             y: 2
     00000005:
+      type: {class: float2PtrBuilder, ns: Blob.Mathematics, asm: Blob.Builder}
+      data:
+        Value:
+          id: 8
+    00000006:
       type: {class: int3Builder, ns: Blob.Mathematics, asm: Blob.Builder}
       data:
         Value:
           x: 33
           y: 22
           z: 11
-    00000006:
+    00000007:
       type: {class: int3Builder, ns: Blob.Mathematics, asm: Blob.Builder}
       data:
         Value:
           x: 11
           y: 22
           z: 33
+    00000008:
+      type: {class: float2Builder, ns: Blob.Mathematics, asm: Blob.Builder}
+      data:
+        Value:
+          x: 2
+          y: 3
 --- !u!4 &1534642739
 Transform:
   m_ObjectHideFlags: 0
