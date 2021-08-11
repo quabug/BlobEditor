@@ -57,16 +57,18 @@ namespace Blob
             builder.AllocateString(ref data, Value);
         }
     }
-    //
-    // [Serializable]
-    // public class PtrBuilder<T> : Builder<BlobPtr<T>> where T : unmanaged
-    // {
-    //     [SerializeReference] public IBuilder PtrValue;
-    //
-    //     public override void Build(BlobBuilder builder, ref BlobPtr<T> data)
-    //     {
-    //     }
-    // }
+
+    [Serializable]
+    public class PtrBuilder<T> : Builder<BlobPtr<T>> where T : unmanaged
+    {
+        [SerializeReference, UnboxSinglePropertyBuilder, UnityDrawProperty] public IBuilder Value;
+
+        public override unsafe void Build(BlobBuilder builder, ref BlobPtr<T> data)
+        {
+            ref var value = ref builder.Allocate(ref data);
+            Value.Build(builder, new IntPtr(UnsafeUtility.AddressOf(ref value)));
+        }
+    }
 
     [Serializable]
     public class SerializedBuilder<T> : Builder<T> where T : unmanaged

@@ -14,6 +14,7 @@ public class TestBlobBuilder : MonoBehaviour
         Debug.Log($"{nameof(BlobData)}.{nameof(BlobData.C)} = {blob.Value.C}");
         Debug.Log($"{nameof(BlobData)}.{nameof(BlobData.String)} = {blob.Value.String.ToString()}");
         Debug.Log($"{nameof(BlobData)}.{nameof(BlobData.IntArray)} = {string.Join(",", blob.Value.IntArray.ToArray())}");
+        Debug.Log($"{nameof(BlobData)}.{nameof(BlobData.LongPtr)} = {blob.Value.LongPtr.Value}");
     }
 }
 
@@ -24,4 +25,5 @@ public struct BlobData
     private float B;
     public BlobArray<int> IntArray;
     public long C;
+    public BlobPtr<ulong> LongPtr;
 }

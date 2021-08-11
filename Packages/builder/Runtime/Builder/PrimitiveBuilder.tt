@@ -12,6 +12,7 @@ namespace Blob.Primitive
 #>
     public class <#= type.Name #>Builder : Blob.DefaultBuilder<<#= type #>> {}
     public class <#= type.Name #>ArrayBuilder : Blob.ArrayBuilder<<#= type #>> {}
+    public class <#= type.Name #>PtrBuilder : Blob.PtrBuilder<<#= type #>> {}
 <#
         }
     }
