@@ -25,7 +25,7 @@ namespace Blob
     }
 
     [Serializable]
-    public class DefaultBuilder<T> : Builder<T> where T : unmanaged
+    public class ValueBuilder<T> : Builder<T> where T : unmanaged
     {
         public T Value;
 
