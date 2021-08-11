@@ -5,6 +5,30 @@ Edit `BlobAsset` in Inspector and then easily create from code.
 
 ![image](https://user-images.githubusercontent.com/683655/129061436-32d815a5-3fc6-43e5-afcf-79ed0080d4a6.png)
 
+## Installation
+- (Recommend) [OpenUPM](https://openupm.com/packages/com.quabug.blob-editor/): `openupm add com.quabug.blob-editor`
+
+or
+
+- UPM: edit *Packages/manifest.json*
+```
+{
+  "dependencies": {
+    "com.quabug.blob-editor": "1.0.0",
+    ...
+  },
+  "scopedRegistries": [
+    {
+      "name": "package.openupm.com",
+      "url": "https://package.openupm.com",
+      "scopes": [
+        "com.quabug.blob-editor"
+      ]
+    }
+  ]
+}
+```
+
 ## Usage
 
 ### `SerializedBuilder<>`
