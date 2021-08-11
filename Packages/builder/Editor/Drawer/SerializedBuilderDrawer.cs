@@ -28,7 +28,8 @@ namespace Blob.Editor
         {
             property.serializedObject.Update();
 
-            var blobType = fieldInfo.FieldType.GenericTypeArguments[0];
+            var fieldType = fieldInfo == null ? property.GetObject().GetType() : fieldInfo.FieldType;
+            var blobType = fieldType.FindGenericArgumentsOf(typeof(Builder<>))[0];
             var blobFields = blobType.GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
 
             var buildersProperty = Builders(property);
@@ -40,6 +41,8 @@ namespace Blob.Editor
             fieldNamesProperty.arraySize = blobFields.Length;
             var fieldNames = (string[]) fieldNamesProperty.GetObject();
             Array.Resize(ref fieldNames, blobFields.Length);
+
+            property.serializedObject.ApplyModifiedProperties();
 
             for (var i = 0; i < blobFields.Length; i++)
             {
@@ -56,6 +59,7 @@ namespace Blob.Editor
                     else if (builder != null && builder.GetType() == builderType) newBuilder = builder;
                     else newBuilder = Activator.CreateInstance(builderType);
                     buildersProperty.GetArrayElementAtIndex(i).managedReferenceValue = newBuilder;
+                    property.serializedObject.ApplyModifiedProperties();
                 }
             }
 
