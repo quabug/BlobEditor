@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "com.quabug.blob-editor": {
-      "version": "file:builder",
+      "version": "file:blob-editor",
       "depth": 0,
       "source": "embedded",
       "dependencies": {
