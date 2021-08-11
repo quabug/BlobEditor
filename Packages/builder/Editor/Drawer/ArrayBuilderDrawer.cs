@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -19,12 +18,16 @@ namespace Blob.Editor
             property.serializedObject.Update();
             var valueProperty = ValueProperty(property);
             var elementType = property.GetObject().GetType().FindGenericArgumentsOf(typeof(ArrayBuilder<>))[0];
-            elementType = TypeCache.GetTypesDerivedFrom(typeof(Builder<>).MakeGenericType(elementType)).Single();
+            var builderType = elementType.FindBuilderType(null);
             for (var i = 0; i < valueProperty.arraySize; i++)
             {
                 var elementProperty = valueProperty.GetArrayElementAtIndex(i);
                 var element = elementProperty.GetObject();
-                if (element == null || element.GetType() != elementType) elementProperty.managedReferenceValue = Activator.CreateInstance(elementType);
+                if (element == null || element.GetType() != builderType)
+                {
+                    elementProperty.managedReferenceValue = Activator.CreateInstance(builderType);
+                    property.serializedObject.ApplyModifiedProperties();
+                }
             }
             EditorGUI.PropertyField(position, valueProperty, label, includeChildren: true);
             property.serializedObject.ApplyModifiedProperties();

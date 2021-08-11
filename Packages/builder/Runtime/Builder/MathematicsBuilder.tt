@@ -5,6 +5,8 @@
 <#@ assembly name="$(SolutionDir)/Library/ScriptAssemblies/Unity.Mathematics.dll" #>
 <#@ import namespace="Unity.Mathematics" #>
 
+<#@ include file="Builders.ttinclude" #>
+
 #if ENABLE_UNITY_MATHEMATICS
 
 namespace Blob.Mathematics
@@ -15,11 +17,7 @@ namespace Blob.Mathematics
     {
         if (type.IsPublic && IsUnmanaged(type))
         {
-#>
-    public class <#= type.Name #>Builder : Blob.DefaultBuilder<<#= type #>> {}
-    public class <#= type.Name #>ArrayBuilder : Blob.ArrayBuilder<<#= type #>> {}
-    public class <#= type.Name #>PtrBuilder : Blob.PtrBuilder<<#= type #>> {}
-<#
+            GenerateBuilders(type);
         }
     }
 #>

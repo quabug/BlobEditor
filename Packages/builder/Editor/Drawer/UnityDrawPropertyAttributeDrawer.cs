@@ -11,12 +11,12 @@ namespace Blob.Editor
         {
             public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
             {
-                return EditorGUI.GetPropertyHeight(property, label);
+                return EditorGUI.GetPropertyHeight(property, label, includeChildren: true);
             }
 
             public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
             {
-                EditorGUI.PropertyField(position, property, label);
+                EditorGUI.PropertyField(position, property, label, includeChildren: true);
             }
         }
 

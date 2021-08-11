@@ -1,6 +1,8 @@
 ﻿<#@ template language="C#" #>
 <#@ output extension=".cs" #>
 
+<#@ include file="Builders.ttinclude" #>
+
 namespace Blob.Primitive
 {
 
@@ -9,11 +11,7 @@ namespace Blob.Primitive
     {
         if (type.IsPrimitive)
         {
-#>
-    public class <#= type.Name #>Builder : Blob.DefaultBuilder<<#= type #>> {}
-    public class <#= type.Name #>ArrayBuilder : Blob.ArrayBuilder<<#= type #>> {}
-    public class <#= type.Name #>PtrBuilder : Blob.PtrBuilder<<#= type #>> {}
-<#
+            GenerateBuilders(type);
         }
     }
 #>

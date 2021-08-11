@@ -47,8 +47,7 @@ namespace Blob.Editor
             for (var i = 0; i < blobFields.Length; i++)
             {
                 var blobField = blobFields[i];
-                var builderType = typeof(Builder<>).MakeGenericType(blobField.FieldType);
-                builderType = TypeCache.GetTypesDerivedFrom(builderType).Single();
+                var builderType = blobField.FindBuilderType();
                 var builder = builders[i];
                 if (builder == null || builder.GetType() != builderType || blobField.Name != fieldNames[i])
                 {
