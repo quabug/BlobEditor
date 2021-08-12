@@ -54,7 +54,7 @@ public class BlobComponent : MonoBehaviour
 
 Builders of *primitive* types and *com.unity.mathematics* types are provided by default.
 
-A specific type of builder must be provided for any new type.
+A specific builder must be provided for any new type.
 
 Take `Guid` as example:
 ``` c#
@@ -76,7 +76,7 @@ public class GuidBuilder : Builder<Guid>
 ```
 
 - `PlainDataBuilder<>`: Builder of POD. Show the POD as whole in inspector. Not support data with its own builder, e.g. `BlobPtr`, `BlobArray` or `BlobString`.
-- `BlobDataBuilder<>`: Builder of structure with **Blob** data inside. Split each data inside structure into its own builder to show and edit. Support data with `DefaultBuilder` or `CustomBuilder, e.g. `BlobPtr`, `BlobArray` or `BlobString`.
+- `BlobDataBuilder<>`: Builder of structure with **Blob-Specific** data inside. Split each data inside structure into its own builder to show and edit. Support data with `DefaultBuilder` or `CustomBuilder, e.g. `BlobPtr`, `BlobArray` or `BlobString`.
 - `ArrayBuilder<>`: Builder for `BlobArray<>`.
 - `PtrBuilder<>`: Builder for `BlobPtr<>`.
 
