@@ -5,19 +5,18 @@ using UnityEngine;
 
 public class TestCustomBuilder : MonoBehaviour
 {
-    public SerializedBuilder<CustomBuilderBlob> Blob;
+    public BlobAsset<CustomBuilderData> Blob;
 
     private void Awake()
     {
-        var blob = Blob.Create();
-        Debug.Log($"CustomBuilderBlob.Guid = {blob.Value.Guid}");
-        Debug.Log($"CustomBuilderBlob.StringGuid = {blob.Value.StringGuid.ToString()}");
-        Debug.Log($"CustomBuilderBlob.ObjectName = {blob.Value.ObjectName.ToString()}");
-        Debug.Log($"CustomBuilderBlob.Objects = {TestBlobBuilder.StringArrayToString(ref blob.Value.Objects)}");
+        Debug.Log($"CustomBuilderData.Guid = {Blob.Value.Guid}");
+        Debug.Log($"CustomBuilderData.StringGuid = {Blob.Value.StringGuid.ToString()}");
+        Debug.Log($"CustomBuilderData.ObjectName = {Blob.Value.ObjectName.ToString()}");
+        Debug.Log($"CustomBuilderData.Objects = {TestBlobBuilder.StringArrayToString(ref Blob.Value.Objects)}");
     }
 }
 
-public struct CustomBuilderBlob
+public struct CustomBuilderData
 {
     public Guid Guid;
     [CustomBuilder(typeof(StringGuid))] public BlobString StringGuid;

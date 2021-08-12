@@ -6,32 +6,30 @@ using UnityEngine;
 
 public class TestComplexBlobBuilder : MonoBehaviour
 {
-    public SerializedBuilder<ComplexBlobData> Blob;
+    public BlobAsset<ComplexData> Blob;
 
     public void Awake()
     {
-        var blob = Blob.Create();
+        Debug.Log($"ComplexData.A.Int = {Blob.Value.A.Int}");
+        Debug.Log($"ComplexData.A.Long = {Blob.Value.A.Long}");
+        Debug.Log($"ComplexData.A.String = {Blob.Value.A.String.ToString()}");
+        Debug.Log($"ComplexData.A.IntArray = {string.Join(",", Blob.Value.A.IntArray.ToArray())}");
+        Debug.Log($"ComplexData.A.LongPtr = {Blob.Value.A.ULongPtr.Value}");
 
-        Debug.Log($"ComplexBlobData.A.Int = {blob.Value.A.Int}");
-        Debug.Log($"ComplexBlobData.A.Long = {blob.Value.A.Long}");
-        Debug.Log($"ComplexBlobData.A.String = {blob.Value.A.String.ToString()}");
-        Debug.Log($"ComplexBlobData.A.IntArray = {string.Join(",", blob.Value.A.IntArray.ToArray())}");
-        Debug.Log($"ComplexBlobData.A.LongPtr = {blob.Value.A.ULongPtr.Value}");
+        Debug.Log($"ComplexData.B.Int = {Blob.Value.B.Int}");
+        Debug.Log($"ComplexData.B.Int2Array = {string.Join(",", Blob.Value.B.Int2Array.ToArray())}");
+        Debug.Log($"ComplexData.B.String = {Blob.Value.B.String.ToString()}");
+        Debug.Log($"ComplexData.B.Int3Ptr = {Blob.Value.B.Int3Ptr.Value}");
 
-        Debug.Log($"ComplexBlobData.B.Int = {blob.Value.B.Int}");
-        Debug.Log($"ComplexBlobData.B.Int2Array = {string.Join(",", blob.Value.B.Int2Array.ToArray())}");
-        Debug.Log($"ComplexBlobData.B.String = {blob.Value.B.String.ToString()}");
-        Debug.Log($"ComplexBlobData.B.Int3Ptr = {blob.Value.B.Int3Ptr.Value}");
-
-        Debug.Log($"ComplexBlobData.C.Float3 = {blob.Value.C.Float3}");
-        Debug.Log($"ComplexBlobData.C.Double2x2 = {blob.Value.C.Double2x2}");
-        Debug.Log($"ComplexBlobData.C.String = {blob.Value.C.String.ToString()}");
-        Debug.Log($"ComplexBlobData.C.IntArray = {string.Join(",", blob.Value.C.Int3Array.ToArray())}");
-        Debug.Log($"ComplexBlobData.C.Float2Ptr = {blob.Value.C.Float2Ptr.Value}");
+        Debug.Log($"ComplexData.C.Float3 = {Blob.Value.C.Float3}");
+        Debug.Log($"ComplexData.C.Double2x2 = {Blob.Value.C.Double2x2}");
+        Debug.Log($"ComplexData.C.String = {Blob.Value.C.String.ToString()}");
+        Debug.Log($"ComplexData.C.IntArray = {string.Join(",", Blob.Value.C.Int3Array.ToArray())}");
+        Debug.Log($"ComplexData.C.Float2Ptr = {Blob.Value.C.Float2Ptr.Value}");
     }
 }
 
-public struct BlobData2
+public struct SimpleData2
 {
     public int Int;
     public BlobArray<int2> Int2Array;
@@ -39,13 +37,13 @@ public struct BlobData2
     public BlobPtr<int3> Int3Ptr;
 }
 
-public struct ComplexBlobData
+public struct ComplexData
 {
-    public BlobData A;
-    public BlobData2 B;
-    public MathBlobData C;
+    public SimpleData A;
+    public SimpleData2 B;
+    public MathData C;
 }
 
-public class BlobDataBuilder : SerializedBuilder<BlobData> {}
-public class BlobData2Builder : SerializedBuilder<BlobData2> {}
-public class MathBlobDataBuilder : SerializedBuilder<MathBlobData> {}
+public class BlobDataBuilder : BlobDataBuilder<SimpleData> {}
+public class BlobData2Builder : BlobDataBuilder<SimpleData2> {}
+public class MathBlobDataBuilder : BlobDataBuilder<MathData> {}

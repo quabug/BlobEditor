@@ -1,7 +1,7 @@
 ﻿<#@ template language="C#" #>
 <#@ output extension=".cs" #>
 
-<#@ include file="Builders.ttinclude" #>
+<#@ include file="GenerateBuilders.ttinclude" #>
 
 namespace Blob.Primitive
 {

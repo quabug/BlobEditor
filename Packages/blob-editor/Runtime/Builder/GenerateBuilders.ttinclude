@@ -2,7 +2,7 @@
     void GenerateBuilders(Type type)
     {
 #>
-    [DefaultBuilder] public class <#= type.Name #>Builder : Blob.ValueBuilder<<#= type #>> {}
+    [DefaultBuilder] public class <#= type.Name #>Builder : Blob.PlainDataBuilder<<#= type #>> {}
     [DefaultBuilder] public class <#= type.Name #>ArrayBuilder : Blob.ArrayBuilder<<#= type #>> {}
     [DefaultBuilder] public class <#= type.Name #>PtrBuilder : Blob.PtrBuilder<<#= type #>> {}
 <#+

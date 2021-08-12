@@ -6,11 +6,11 @@ using UnityEngine;
 
 public class Example : MonoBehaviour
 {
-    public SerializedBuilder<ExampleBlob> Blob;
+    public BlobAsset<ExampleBlob> Blob;
 
     private void Awake()
     {
-        BlobAssetReference<ExampleBlob> blob = Blob.Create();
+        BlobAssetReference<ExampleBlob> blob = Blob.Reference;
         // use blob
     }
 }
