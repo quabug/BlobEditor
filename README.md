@@ -76,7 +76,7 @@ public class GuidBuilder : Builder<Guid>
 ```
 
 - `PlainDataBuilder<>`: Builder of POD. Show the POD as whole in inspector. Not support data with its own builder, e.g. `BlobPtr`, `BlobArray` or `BlobString`.
-- `BlobDataBuilder<>`: Builder of structure with **Blob-Specific** data inside. Split each data inside structure into its own builder to show and edit. Support data with `DefaultBuilder` or `CustomBuilder, e.g. `BlobPtr`, `BlobArray` or `BlobString`.
+- `BlobDataBuilder<>`: Builder of structure with **Blob-Specific** data inside. Split each data inside structure into its own builder to show and edit. Support data with `DefaultBuilder` or `CustomBuilder`, e.g. `BlobPtr`, `BlobArray` or `BlobString`.
 - `ArrayBuilder<>`: Builder for `BlobArray<>`.
 - `PtrBuilder<>`: Builder for `BlobPtr<>`.
 
