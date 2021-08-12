@@ -3,18 +3,15 @@
 
 Edit `BlobAsset` in Inspector and then easily create from code.
 
-![image](https://user-images.githubusercontent.com/683655/129061436-32d815a5-3fc6-43e5-afcf-79ed0080d4a6.png)
+![image](https://user-images.githubusercontent.com/683655/129165723-24fe1c6a-884b-4059-98e1-0fe941deec3d.png)
 
 ## Installation
 - (Recommend) [OpenUPM](https://openupm.com/packages/com.quabug.blob-editor/): `openupm add com.quabug.blob-editor`
-
-or
-
-- UPM: edit *Packages/manifest.json*
+- or UPM: edit *Packages/manifest.json*
 ```
 {
   "dependencies": {
-    "com.quabug.blob-editor": "1.0.0",
+    "com.quabug.blob-editor": "1.1.0",
     ...
   },
   "scopedRegistries": [
@@ -31,23 +28,24 @@ or
 
 ## Usage
 
-### `SerializedBuilder<>`
+### `BlobAsset<>`
 
 ``` c#
 public struct BlobData
 {
-    public int Value;
+    public int IntValue;
 }
 
 public class BlobComponent : MonoBehaviour
 {
-    public SerializedBuilder<BlobData> Blob;
+    public BlobAsset<BlobData> Blob;
 
     private void Awake()
     {
-        BlobAssetReference<BlobData> blob = Blob.Create();
-        // use blob
-        Debug.Log($"{blob.Value.Value}");
+        // get `BlobAssetReference` from `BlobAsset`
+        BlobAssetReference<ExampleBlob> blob = Blob.Reference;
+        // or use blob value directly
+        var _ = Blob.Value.IntValue;
     }
 }
 ```
@@ -76,6 +74,11 @@ public class GuidBuilder : Builder<Guid>
     }
 }
 ```
+
+- `PlainDataBuilder<>`: Builder of POD. Show the POD as whole in inspector. Not support data with its own builder, e.g. `BlobPtr`, `BlobArray` or `BlobString`.
+- `BlobDataBuilder<>`: Builder of structure with **Blob** data inside. Split each data inside structure into its own builder to show and edit. Support data with `DefaultBuilder` or `CustomBuilder, e.g. `BlobPtr`, `BlobArray` or `BlobString`.
+- `ArrayBuilder<>`: Builder for `BlobArray<>`.
+- `PtrBuilder<>`: Builder for `BlobPtr<>`.
 
 ### `DefaultBuilderAttribute` and `CustomBuilderAttribute`
 There's may have multiple builders for a single type, one of them must be defined as `DefaultBuilder`, or use `CustomBuilder` to assign a specific builder for a value of blob.
