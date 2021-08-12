@@ -25,7 +25,7 @@ namespace Blob
     /// <summary>
     /// Builder of POD.
     /// Show the POD as whole in inspector.
-    /// Not support data with its own builder, like `BlobPtr`, `BlobArray` or `BlobString`.
+    /// Not support data with its own builder, e.g. `BlobPtr`, `BlobArray` and `BlobString`.
     /// </summary>
     /// <typeparam name="T">type of POD</typeparam>
     [Serializable]
@@ -42,9 +42,9 @@ namespace Blob
     /// <summary>
     /// Builder of structure with `Blob` data inside.
     /// Split each data inside structure into its own builder to show and edit.
-    /// Support data with <seealso cref="DefaultBuilderAttribute"/> and <seealso cref="CustomBuilderAttribute"/>, like `BlobPtr`, `BlobArray` or `BlobString`
+    /// Support data with <seealso cref="DefaultBuilderAttribute"/> and <seealso cref="CustomBuilderAttribute"/>, e.g. `BlobPtr`, `BlobArray` and `BlobString`
     /// </summary>
-    /// <typeparam name="T">type ofa blob structure</typeparam>
+    /// <typeparam name="T">type of blob structure</typeparam>
     [Serializable]
     public class BlobDataBuilder<T> : Builder<T> where T : unmanaged
     {

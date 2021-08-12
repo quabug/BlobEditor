@@ -10,8 +10,10 @@ public class Example : MonoBehaviour
 
     private void Awake()
     {
+        // get `BlobAssetReference` from `BlobAsset`
         BlobAssetReference<ExampleBlob> blob = Blob.Reference;
-        // use blob
+        // or use blob value directly
+        var _ = Blob.Value.Float3;
     }
 }
 
