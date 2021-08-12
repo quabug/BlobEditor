@@ -5,7 +5,7 @@
 <#@ assembly name="$(SolutionDir)/Library/ScriptAssemblies/Unity.Mathematics.dll" #>
 <#@ import namespace="Unity.Mathematics" #>
 
-<#@ include file="Builders.ttinclude" #>
+<#@ include file="GenerateBuilders.ttinclude" #>
 
 #if ENABLE_UNITY_MATHEMATICS
 

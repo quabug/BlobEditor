@@ -6,12 +6,14 @@ using UnityEngine;
 
 public class Example : MonoBehaviour
 {
-    public SerializedBuilder<ExampleBlob> Blob;
+    public BlobAsset<ExampleBlob> Blob;
 
     private void Awake()
     {
-        BlobAssetReference<ExampleBlob> blob = Blob.Create();
-        // use blob
+        // get `BlobAssetReference` from `BlobAsset`
+        BlobAssetReference<ExampleBlob> blob = Blob.Reference;
+        // or use blob value directly
+        var _ = Blob.Value.Float3;
     }
 }
 

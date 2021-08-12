@@ -1,4 +1,3 @@
-using System.Linq;
 using Blob;
 using Unity.Entities;
 using UnityEngine;
@@ -6,19 +5,18 @@ using UnityEngine;
 
 public class TestBlobBuilder : MonoBehaviour
 {
-    public SerializedBuilder<BlobData> Blob;
+    public BlobAsset<SimpleData> Blob;
 
     public void Awake()
     {
-        var blob = Blob.Create();
-        Debug.Log($"{nameof(BlobData)}.{nameof(BlobData.Int)} = {blob.Value.Int}");
-        Debug.Log($"{nameof(BlobData)}.{nameof(BlobData.Long)} = {blob.Value.Long}");
-        Debug.Log($"{nameof(BlobData)}.{nameof(BlobData.String)} = {blob.Value.String.ToString()}");
-        Debug.Log($"{nameof(BlobData)}.{nameof(BlobData.IntArray)} = {string.Join(",", blob.Value.IntArray.ToArray())}");
-        Debug.Log($"{nameof(BlobData)}.{nameof(BlobData.ULongPtr)} = {blob.Value.ULongPtr.Value}");
-        Debug.Log($"{nameof(BlobData)}.{nameof(BlobData.StringArray)} = {StringArrayToString(ref blob.Value.StringArray)}");
-        Debug.Log($"{nameof(BlobData)}.{nameof(BlobData.UInt)} = {blob.Value.UInt}");
-        Debug.Log($"{nameof(BlobData)}.{nameof(BlobData.DoublePtr)} = {blob.Value.DoublePtr.Value}");
+        Debug.Log($"{nameof(SimpleData)}.{nameof(SimpleData.Int)} = {Blob.Value.Int}");
+        Debug.Log($"{nameof(SimpleData)}.{nameof(SimpleData.Long)} = {Blob.Value.Long}");
+        Debug.Log($"{nameof(SimpleData)}.{nameof(SimpleData.String)} = {Blob.Value.String.ToString()}");
+        Debug.Log($"{nameof(SimpleData)}.{nameof(SimpleData.IntArray)} = {string.Join(",", Blob.Value.IntArray.ToArray())}");
+        Debug.Log($"{nameof(SimpleData)}.{nameof(SimpleData.ULongPtr)} = {Blob.Value.ULongPtr.Value}");
+        Debug.Log($"{nameof(SimpleData)}.{nameof(SimpleData.StringArray)} = {StringArrayToString(ref Blob.Value.StringArray)}");
+        Debug.Log($"{nameof(SimpleData)}.{nameof(SimpleData.UInt)} = {Blob.Value.UInt}");
+        Debug.Log($"{nameof(SimpleData)}.{nameof(SimpleData.DoublePtr)} = {Blob.Value.DoublePtr.Value}");
     }
 
     public static string StringArrayToString(ref BlobArray<BlobString> array)
@@ -36,7 +34,7 @@ public class TestBlobBuilder : MonoBehaviour
     }
 }
 
-public struct BlobData
+public struct SimpleData
 {
     public int Int;
     public BlobString String;

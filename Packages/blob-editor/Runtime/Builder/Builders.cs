@@ -1,14 +1,12 @@
 using System;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using Unity.Collections;
 using Unity.Collections.LowLevel.Unsafe;
 using Unity.Entities;
 using UnityEngine;
 
 namespace Blob
 {
-
     public interface IBuilder
     {
         void Build(BlobBuilder builder, IntPtr dataPtr);
@@ -24,14 +22,47 @@ namespace Blob
         public abstract void Build(BlobBuilder builder, ref T data);
     }
 
+    /// <summary>
+    /// Builder of POD.
+    /// Show the POD as whole in inspector.
+    /// Not support data with its own builder, e.g. `BlobPtr`, `BlobArray` and `BlobString`.
+    /// </summary>
+    /// <typeparam name="T">type of POD</typeparam>
     [Serializable]
-    public class ValueBuilder<T> : Builder<T> where T : unmanaged
+    public class PlainDataBuilder<T> : Builder<T> where T : unmanaged
     {
         public T Value;
 
         public override void Build(BlobBuilder builder, ref T data)
         {
             data = Value;
+        }
+    }
+
+    /// <summary>
+    /// Builder of structure with `Blob` data inside.
+    /// Split each data inside structure into its own builder to show and edit.
+    /// Support data with <seealso cref="DefaultBuilderAttribute"/> and <seealso cref="CustomBuilderAttribute"/>, e.g. `BlobPtr`, `BlobArray` and `BlobString`
+    /// </summary>
+    /// <typeparam name="T">type of blob structure</typeparam>
+    [Serializable]
+    public class BlobDataBuilder<T> : Builder<T> where T : unmanaged
+    {
+        [HideInInspector] public string[] FieldNames;
+        [SerializeReference, UnboxSinglePropertyBuilder, UnityDrawProperty] public IBuilder[] Builders;
+
+        public override unsafe void Build(BlobBuilder builder, ref T data)
+        {
+            var dataPtr = new IntPtr(UnsafeUtility.AddressOf(ref data));
+            var fields = typeof(T).GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+            for (var i = 0; i < Builders.Length; i++)
+            {
+#if ENABLE_IL2CPP
+#warning `Marshal.OffsetOf` may not work as expected with IL2CPP backend: https://issuetracker.unity3d.com/issues/marshal-dot-offsetof-returns-incorrect-offset-when-building-the-project-with-il2cpp-scripting-backend
+#endif
+                var offset = Marshal.OffsetOf<T>(fields[i].Name).ToInt32();
+                Builders[i].Build(builder, dataPtr + offset);
+            }
         }
     }
 
@@ -70,35 +101,6 @@ namespace Blob
         {
             ref var value = ref builder.Allocate(ref data);
             Value.Build(builder, new IntPtr(UnsafeUtility.AddressOf(ref value)));
-        }
-    }
-
-    [Serializable]
-    public class SerializedBuilder<T> : Builder<T> where T : unmanaged
-    {
-        [HideInInspector] public string[] FieldNames;
-        [SerializeReference, UnboxSinglePropertyBuilder, UnityDrawProperty] public IBuilder[] Builders;
-
-        public override unsafe void Build(BlobBuilder builder, ref T data)
-        {
-            var dataPtr = new IntPtr(UnsafeUtility.AddressOf(ref data));
-            var fields = typeof(T).GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
-            for (var i = 0; i < Builders.Length; i++)
-            {
-#if ENABLE_IL2CPP
-#warning `Marshal.OffsetOf` may not work as expected with IL2CPP backend: https://issuetracker.unity3d.com/issues/marshal-dot-offsetof-returns-incorrect-offset-when-building-the-project-with-il2cpp-scripting-backend
-#endif
-                var offset = Marshal.OffsetOf<T>(fields[i].Name).ToInt32();
-                Builders[i].Build(builder, dataPtr + offset);
-            }
-        }
-
-        public BlobAssetReference<T> Create()
-        {
-            using var builder = new BlobBuilder(Allocator.Temp);
-            ref var root = ref builder.ConstructRoot<T>();
-            Build(builder, ref root);
-            return builder.CreateBlobAssetReference<T>(Allocator.Persistent);
         }
     }
 }

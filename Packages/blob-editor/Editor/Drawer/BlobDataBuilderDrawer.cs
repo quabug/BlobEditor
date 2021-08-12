@@ -6,8 +6,8 @@ using UnityEngine;
 
 namespace Blob.Editor
 {
-    [CustomPropertyDrawer(typeof(SerializedBuilder<>), useForChildren: true)]
-    public class SerializedBuilderDrawer : PropertyDrawer
+    [CustomPropertyDrawer(typeof(BlobDataBuilder<>), useForChildren: true)]
+    public class BlobDataBuilderDrawer : PropertyDrawer
     {
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
@@ -85,13 +85,13 @@ namespace Blob.Editor
 
         private SerializedProperty Builders(SerializedProperty property)
         {
-            var buildersPath = $"{property.propertyPath}.{nameof(SerializedBuilder<int>.Builders)}";
+            var buildersPath = $"{property.propertyPath}.{nameof(BlobDataBuilder<int>.Builders)}";
             return property.serializedObject.FindProperty(buildersPath);
         }
 
         private SerializedProperty FieldNames(SerializedProperty property)
         {
-            var fieldNamesPath = $"{property.propertyPath}.{nameof(SerializedBuilder<int>.FieldNames)}";
+            var fieldNamesPath = $"{property.propertyPath}.{nameof(BlobDataBuilder<int>.FieldNames)}";
             return property.serializedObject.FindProperty(fieldNamesPath);
         }
     }
