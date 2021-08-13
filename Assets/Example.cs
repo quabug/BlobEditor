@@ -1,5 +1,6 @@
 using System;
 using Blob;
+using Unity.Animation;
 using Unity.Entities;
 using Unity.Mathematics;
 using UnityEngine;
@@ -27,4 +28,5 @@ public struct ExampleBlob
     public BlobPtr<long> LongPtr;
     public Guid Guid;
     [CustomBuilder(typeof(ObjectName))] public BlobString GameObjectName;
+    public AnimationCurveBlob AnimationCurve;
 }

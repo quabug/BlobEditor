@@ -685,6 +685,7 @@ MonoBehaviour:
       - LongPtr
       - Guid
       - GameObjectName
+      - AnimationCurve
       Builders:
       - id: 0
       - id: 1
@@ -694,6 +695,7 @@ MonoBehaviour:
       - id: 5
       - id: 6
       - id: 7
+      - id: 8
   references:
     version: 1
     00000000:
@@ -715,20 +717,20 @@ MonoBehaviour:
       type: {class: double2ArrayBuilder, ns: Blob.Mathematics, asm: Blob.Builder}
       data:
         Value:
-        - id: 8
         - id: 9
+        - id: 10
     00000004:
       type: {class: StringArrayBuilder, ns: Blob, asm: Blob.Builder}
       data:
         Value:
-        - id: 10
         - id: 11
         - id: 12
+        - id: 13
     00000005:
       type: {class: Int64PtrBuilder, ns: Blob.Primitive, asm: Blob.Builder}
       data:
         Value:
-          id: 13
+          id: 14
     00000006:
       type: {class: GuidBuilder, ns: , asm: Assembly-CSharp}
       data:
@@ -738,30 +740,57 @@ MonoBehaviour:
       data:
         GameObject: {fileID: 1805661907}
     00000008:
+      type: {class: AnimationCurveBlobBuilder, ns: Blob, asm: Blob.Builder}
+      data:
+        Value:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 2
+            outSlope: 2
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+    00000009:
       type: {class: double2Builder, ns: Blob.Mathematics, asm: Blob.Builder}
       data:
         Value:
           x: 6
           y: 7
-    00000009:
+    0000000A:
       type: {class: double2Builder, ns: Blob.Mathematics, asm: Blob.Builder}
       data:
         Value:
           x: 8
           y: 9
-    0000000A:
-      type: {class: StringBuilder, ns: Blob, asm: Blob.Builder}
-      data:
-        Value: 111111
     0000000B:
       type: {class: StringBuilder, ns: Blob, asm: Blob.Builder}
       data:
-        Value: 222222
+        Value: 111111
     0000000C:
       type: {class: StringBuilder, ns: Blob, asm: Blob.Builder}
       data:
-        Value: 333333
+        Value: 222222
     0000000D:
+      type: {class: StringBuilder, ns: Blob, asm: Blob.Builder}
+      data:
+        Value: 333333
+    0000000E:
       type: {class: Int64Builder, ns: Blob.Primitive, asm: Blob.Builder}
       data:
         Value: 456778
