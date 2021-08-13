@@ -3,7 +3,7 @@
 
 Edit `BlobAsset` in Inspector and then easily create from code.
 
-![image](https://user-images.githubusercontent.com/683655/129165723-24fe1c6a-884b-4059-98e1-0fe941deec3d.png)
+![image](https://user-images.githubusercontent.com/683655/129414336-ca6523f3-a35a-4545-b8b9-c974e383372a.png)
 
 ## Installation
 - (Recommend) [OpenUPM](https://openupm.com/packages/com.quabug.blob-editor/): `openupm add com.quabug.blob-editor`
