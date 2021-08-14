@@ -1,6 +1,5 @@
 using System;
 using System.Reflection;
-using System.Runtime.InteropServices;
 using Unity.Collections.LowLevel.Unsafe;
 using Unity.Entities;
 using UnityEngine;
@@ -57,10 +56,7 @@ namespace Blob
             var fields = typeof(T).GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
             for (var i = 0; i < Builders.Length; i++)
             {
-#if ENABLE_IL2CPP
-#warning `Marshal.OffsetOf` may not work as expected with IL2CPP backend: https://issuetracker.unity3d.com/issues/marshal-dot-offsetof-returns-incorrect-offset-when-building-the-project-with-il2cpp-scripting-backend
-#endif
-                var offset = Marshal.OffsetOf<T>(fields[i].Name).ToInt32();
+                var offset = UnsafeUtility.GetFieldOffset(fields[i]);
                 Builders[i].Build(builder, dataPtr + offset);
             }
         }
