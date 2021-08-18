@@ -2,7 +2,7 @@
 
 Edit `BlobAsset` in Inspector and then easily create from code.
 
-![image](https://user-images.githubusercontent.com/683655/129414336-ca6523f3-a35a-4545-b8b9-c974e383372a.png)
+![image](https://user-images.githubusercontent.com/683655/129909694-e2a48396-3bc4-4842-9e51-9c1732a6d8af.png)
 
 ## Upgrade Note
 ⚠️ v1.2: upgrade from version 1.1 will lose data, you should either recreate data manually or use `BlobAssetV1`
