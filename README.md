@@ -4,6 +4,9 @@ Edit `BlobAsset` in Inspector and then easily create from code.
 
 ![image](https://user-images.githubusercontent.com/683655/129414336-ca6523f3-a35a-4545-b8b9-c974e383372a.png)
 
+## Upgrade Note
+⚠️ v1.2: upgrade from version 1.1 will lose data, you should either recreate data manually or use `BlobAssetV1`
+
 ## Installation
 - (Recommend) [OpenUPM](https://openupm.com/packages/com.quabug.blob-editor/): `openupm add com.quabug.blob-editor`
 - or UPM: edit *Packages/manifest.json*
@@ -30,21 +33,39 @@ Edit `BlobAsset` in Inspector and then easily create from code.
 ### `BlobAsset<>`
 
 ``` c#
-public struct BlobData
+public class SingleBlobComponent : MonoBehaviour
 {
-    public int IntValue;
-}
-
-public class BlobComponent : MonoBehaviour
-{
-    public BlobAsset<BlobData> Blob;
+    public BlobAsset<BlobArray<int>> IntArray;
 
     private void Awake()
     {
         // get `BlobAssetReference` from `BlobAsset`
-        BlobAssetReference<ExampleBlob> blob = Blob.Reference;
+        BlobAssetReference<BlobArray<int>> blob = IntArray.Reference;
         // or use blob value directly
-        var _ = Blob.Value.IntValue;
+        ref BlobArray<int> _ = ref IntArray.Value;
+    }
+}
+```
+
+``` c#
+struct Blob
+{
+    public int Int;
+    public BlobString String;
+    
+    public class Builder : BlobDataBuilder<Blob> {}
+}
+
+public class BlobStructureComponent : MonoBehaviour
+{
+    public BlobAsset<Blob> BlobValue;
+
+    private void Awake()
+    {
+        // get `BlobAssetReference` from `BlobAsset`
+        BlobAssetReference<BlobData> blob = BlobValue.Reference;
+        // or use blob value directly
+        string _ = BlobValue.Value.String.ToString();
     }
 }
 ```
