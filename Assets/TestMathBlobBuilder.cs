@@ -27,3 +27,5 @@ public struct MathData
     public double2x2 Double2x2;
     public BlobPtr<float2> Float2Ptr;
 }
+
+public class MathBlobDataBuilder : BlobDataBuilder<MathData> {}

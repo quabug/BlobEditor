@@ -46,3 +46,5 @@ public struct SimpleData
     public uint UInt;
     public BlobPtr<double> DoublePtr;
 }
+
+public class SimpleDataBuilder : BlobDataBuilder<SimpleData> {}

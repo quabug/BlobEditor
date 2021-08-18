@@ -30,3 +30,5 @@ public struct ExampleBlob
     [CustomBuilder(typeof(ObjectName))] public BlobString GameObjectName;
     public AnimationCurveBlob AnimationCurve;
 }
+
+public class ExampleBlobBuilder : BlobDataBuilder<ExampleBlob> {}

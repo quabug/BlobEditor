@@ -234,6 +234,21 @@ namespace Blob.Editor
                 throw new MultipleBuildersException($"There's multiple builders [{string.Join(",", builders.Select(b => b.Name))}] for {valueType.Name}, must mark one of them as `DefaultBuilder` or use `CustomBuilder` on this field", ex);
             }
         }
+
+        public static string ToReadableFullName([NotNull] this Type type)
+        {
+            return type.IsGenericType ? Regex.Replace(type.ToString(), @"(\w+)`\d+\[(.*)\]", "$1<$2>") : type.ToString();
+        }
+
+        public static string ToReadableName([NotNull] this Type type)
+        {
+            if (!type.IsGenericType) return type.Name;
+            var name = type.Name.Remove(type.Name.LastIndexOf('`'));
+            name += "<";
+            name += string.Join(",", type.GenericTypeArguments.Select(t => t.ToReadableName()));
+            name += ">";
+            return name;
+        }
     }
 
     [Serializable]

@@ -1,13 +1,15 @@
 using System;
 using Unity.Collections;
+using Unity.Collections.LowLevel.Unsafe;
 using Unity.Entities;
+using UnityEngine;
 
 namespace Blob
 {
     [Serializable]
     public class BlobAsset<T> where T : unmanaged
     {
-        public BlobDataBuilder<T> Builder;
+        [SerializeReference] internal IBuilder Builder;
 
         BlobAssetReference<T> _blobAssetReference;
 
@@ -22,11 +24,11 @@ namespace Blob
 
         public ref T Value => ref Reference.Value;
 
-        private BlobAssetReference<T> Create()
+        private unsafe BlobAssetReference<T> Create()
         {
             using var builder = new BlobBuilder(Allocator.Temp);
             ref var root = ref builder.ConstructRoot<T>();
-            Builder.Build(builder, ref root);
+            Builder.Build(builder, new IntPtr(UnsafeUtility.AddressOf(ref root)));
             return builder.CreateBlobAssetReference<T>(Allocator.Persistent);
         }
     }
