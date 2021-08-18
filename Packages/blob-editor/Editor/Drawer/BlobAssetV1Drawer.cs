@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Blob.Editor
 {
-    [CustomPropertyDrawer(typeof(BlobAssetV1<>)), Obsolete("for backward compatibility of version 1.1 only")]
+    [CustomPropertyDrawer(typeof(BlobAssetV1<>)), Obsolete("for backward compatibility of version 1 only")]
     public class BlobAssetV1Drawer : PropertyDrawer
     {
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)

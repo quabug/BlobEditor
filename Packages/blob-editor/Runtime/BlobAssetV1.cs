@@ -4,7 +4,7 @@ using Unity.Entities;
 
 namespace Blob
 {
-    [Serializable, Obsolete("for backward compatibility of version 1.1 only")]
+    [Serializable, Obsolete("for backward compatibility of version 1 only")]
     public class BlobAssetV1<T> where T : unmanaged
     {
         public BlobDataBuilder<T> Builder;
