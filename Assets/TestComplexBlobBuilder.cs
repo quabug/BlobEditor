@@ -37,6 +37,8 @@ public struct SimpleData2
     public BlobPtr<int3> Int3Ptr;
 }
 
+public class SimpleData2Builder : BlobDataBuilder<SimpleData2> {}
+
 public struct ComplexData
 {
     public SimpleData A;
@@ -44,6 +46,4 @@ public struct ComplexData
     public MathData C;
 }
 
-public class BlobDataBuilder : BlobDataBuilder<SimpleData> {}
-public class BlobData2Builder : BlobDataBuilder<SimpleData2> {}
-public class MathBlobDataBuilder : BlobDataBuilder<MathData> {}
+public class ComplexDataBuilder : BlobDataBuilder<ComplexData> {}

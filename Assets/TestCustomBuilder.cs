@@ -24,6 +24,8 @@ public struct CustomBuilderData
     [CustomBuilder(typeof(ObjectNameArray))] public BlobArray<BlobString> Objects;
 }
 
+public class CustomBuilderDataBuilder : BlobDataBuilder<CustomBuilderData> {}
+
 [Serializable, DefaultBuilder]
 public class GuidBuilder : Builder<Guid>
 {
