@@ -5,9 +5,12 @@ using UnityEngine;
 
 namespace Blob.Editor
 {
-    [CustomPropertyDrawer(typeof(BlobDataBuilder<>), useForChildren: true)]
-    public class BlobDataBuilderDrawer : PropertyDrawer
+    public abstract class BlobDataBuilderDrawer : PropertyDrawer
     {
+        protected abstract string FieldNamePropertyName { get; }
+        protected abstract string BuildersPropertyName { get; }
+        protected abstract Type GetBlobType(SerializedProperty property);
+
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
             var height = EditorGUIUtility.singleLineHeight;
@@ -27,10 +30,11 @@ namespace Blob.Editor
         {
             property.serializedObject.Update();
 
-            var fieldType = fieldInfo?.FieldType;
-            if (fieldType == null || !typeof(Builder<>).IsAssignableFrom(fieldType))
-                fieldType = property.GetObject().GetType();
-            var blobType = fieldType.FindGenericArgumentsOf(typeof(Builder<>))[0];
+            // var fieldType = fieldInfo?.FieldType;
+            // if (fieldType == null || !typeof(Builder<>).IsAssignableFrom(fieldType))
+            //     fieldType = property.GetObject().GetType();
+            // var blobType = fieldType.FindGenericArgumentsOf(typeof(Builder<>))[0];
+            var blobType = GetBlobType(property);
             var blobFields = blobType.GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
 
             var buildersProperty = Builders(property);
@@ -48,16 +52,16 @@ namespace Blob.Editor
             for (var i = 0; i < blobFields.Length; i++)
             {
                 var blobField = blobFields[i];
-                var builderType = blobField.FindBuilderType();
+                var builderFactory = blobField.FindBuilderCreator();
                 var builder = builders[i];
-                if (builder == null || builder.GetType() != builderType || blobField.Name != fieldNames[i])
+                if (builder == null || builder.GetType() != builderFactory.BuilderType || blobField.Name != fieldNames[i])
                 {
                     fieldNamesProperty.GetArrayElementAtIndex(i).stringValue = blobField.Name;
                     var builderIndex = Array.IndexOf(fieldNames, blobField.Name);
                     object newBuilder = null;
                     if (builderIndex >= 0) newBuilder = builders[builderIndex];
-                    else if (builder != null && builder.GetType() == builderType) newBuilder = builder;
-                    else newBuilder = Activator.CreateInstance(builderType);
+                    else if (builder != null && builder.GetType() == builderFactory.BuilderType) newBuilder = builder;
+                    else newBuilder = builderFactory.Create();
                     buildersProperty.GetArrayElementAtIndex(i).managedReferenceValue = newBuilder;
                     property.serializedObject.ApplyModifiedPropertiesWithoutUndo();
                 }
@@ -86,14 +90,35 @@ namespace Blob.Editor
 
         private SerializedProperty Builders(SerializedProperty property)
         {
-            var buildersPath = $"{property.propertyPath}.{nameof(BlobDataBuilder<int>.Builders)}";
-            return property.serializedObject.FindProperty(buildersPath);
+            return property.FindPropertyRelative(BuildersPropertyName);
         }
 
         private SerializedProperty FieldNames(SerializedProperty property)
         {
-            var fieldNamesPath = $"{property.propertyPath}.{nameof(BlobDataBuilder<int>.FieldNames)}";
-            return property.serializedObject.FindProperty(fieldNamesPath);
+            return property.FindPropertyRelative(FieldNamePropertyName);
         }
+    }
+
+    [CustomPropertyDrawer(typeof(BlobDataBuilder<>), useForChildren: true)]
+    public class GenericBlobDataBuilderDrawer : BlobDataBuilderDrawer
+    {
+        protected override string FieldNamePropertyName => nameof(BlobDataBuilder<int>.FieldNames);
+        protected override string BuildersPropertyName => nameof(BlobDataBuilder<int>.Builders);
+        protected override Type GetBlobType(SerializedProperty property)
+        {
+            var fieldType = fieldInfo?.FieldType;
+            if (fieldType == null || !typeof(Builder<>).IsAssignableFrom(fieldType))
+                fieldType = property.GetObject().GetType();
+            return fieldType.FindGenericArgumentsOf(typeof(Builder<>))[0];
+        }
+    }
+
+    [CustomPropertyDrawer(typeof(DynamicBlobDataBuilder))]
+    public class DynamicBlobDataBuilderDrawer : BlobDataBuilderDrawer
+    {
+        protected override string FieldNamePropertyName => nameof(DynamicBlobDataBuilder.FieldNames);
+        protected override string BuildersPropertyName => nameof(DynamicBlobDataBuilder.Builders);
+        protected override Type GetBlobType(SerializedProperty property) =>
+            Type.GetType(property.FindPropertyRelative(nameof(DynamicBlobDataBuilder.BlobDataType)).stringValue);
     }
 }

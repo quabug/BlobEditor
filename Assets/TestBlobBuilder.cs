@@ -17,6 +17,7 @@ public class TestBlobBuilder : MonoBehaviour
         Debug.Log($"{nameof(SimpleData)}.{nameof(SimpleData.StringArray)} = {StringArrayToString(ref Blob.Value.StringArray)}");
         Debug.Log($"{nameof(SimpleData)}.{nameof(SimpleData.UInt)} = {Blob.Value.UInt}");
         Debug.Log($"{nameof(SimpleData)}.{nameof(SimpleData.DoublePtr)} = {Blob.Value.DoublePtr.Value}");
+        Debug.Log($"{nameof(SimpleData)}.{nameof(SimpleData.TestEnum)} = {Blob.Value.TestEnum}");
     }
 
     public static string StringArrayToString(ref BlobArray<BlobString> array)
@@ -45,6 +46,10 @@ public struct SimpleData
     public BlobArray<BlobString> StringArray;
     public uint UInt;
     public BlobPtr<double> DoublePtr;
+    public Test TestEnum;
 }
 
-public class SimpleDataBuilder : BlobDataBuilder<SimpleData> {}
+public enum Test
+{
+    Foo, Bar
+}

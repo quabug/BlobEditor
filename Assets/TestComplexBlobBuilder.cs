@@ -37,13 +37,9 @@ public struct SimpleData2
     public BlobPtr<int3> Int3Ptr;
 }
 
-public class SimpleData2Builder : BlobDataBuilder<SimpleData2> {}
-
 public struct ComplexData
 {
     public SimpleData A;
     public SimpleData2 B;
     public MathData C;
 }
-
-public class ComplexDataBuilder : BlobDataBuilder<ComplexData> {}

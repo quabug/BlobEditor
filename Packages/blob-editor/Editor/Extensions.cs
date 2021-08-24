@@ -5,12 +5,33 @@ using System.Reflection;
 using System.Runtime.Serialization;
 using System.Text.RegularExpressions;
 using JetBrains.Annotations;
+using Unity.Entities;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Assertions;
 
 namespace Blob.Editor
 {
+    public ref struct BuilderFactory
+    {
+        public Type BuilderType { get; }
+        private readonly Func<object> _creator;
+
+        public BuilderFactory([NotNull] Type builderType)
+        {
+            BuilderType = builderType;
+            _creator = () => Activator.CreateInstance(builderType);
+        }
+
+        public BuilderFactory([NotNull] Type builderType, [NotNull] Func<object> creator)
+        {
+            BuilderType = builderType;
+            _creator = creator;
+        }
+
+        public object Create() => _creator();
+    }
+
     public static class Extensions
     {
         public static object GetSiblingValue(this SerializedProperty property, string name)
@@ -212,26 +233,35 @@ namespace Blob.Editor
             yield return value;
         }
 
-        public static Type FindBuilderType([NotNull] this FieldInfo fieldInfo)
+        public static BuilderFactory FindBuilderCreator([NotNull] this FieldInfo fieldInfo)
         {
             var customBuilder = fieldInfo.GetCustomAttribute<CustomBuilderAttribute>()?.BuilderType;
-            return FindBuilderType(fieldInfo.FieldType, customBuilder);
+            return GetBuilderFactory(fieldInfo.FieldType, customBuilder);
         }
 
-        [NotNull] public static Type FindBuilderType([NotNull] this Type valueType, Type customBuilder)
+        public static BuilderFactory GetBuilderFactory([NotNull] this Type valueType, Type customBuilder)
         {
             var builderType = typeof(Builder<>).MakeGenericType(valueType);
             var builders = TypeCache.GetTypesDerivedFrom(builderType);
-            if (customBuilder == null && builders.Count == 1) return builders[0];
-            if (customBuilder != null && builders.Contains(customBuilder)) return customBuilder;
+            if (customBuilder == null && builders.Count == 1) return new BuilderFactory(builders[0]);
+            if (customBuilder != null && builders.Contains(customBuilder)) return new BuilderFactory(customBuilder);
             if (customBuilder != null) throw new InvalidCustomBuilderException($"Invalid {customBuilder.Name} of {valueType.Name}, must be one of [{string.Join(",", builders.Select(b => b.Name))}]");
+
             try
             {
-                return builders.Single(b => b.GetCustomAttribute<DefaultBuilderAttribute>() != null);
+                var defaultBuilder = builders.SingleOrDefault(b => b.GetCustomAttribute<DefaultBuilderAttribute>() != null);
+                return defaultBuilder == null ? DynamicBuilder() : new BuilderFactory(defaultBuilder);
             }
             catch (Exception ex)
             {
                 throw new MultipleBuildersException($"There's multiple builders [{string.Join(",", builders.Select(b => b.Name))}] for {valueType.Name}, must mark one of them as `DefaultBuilder` or use `CustomBuilder` on this field", ex);
+            }
+
+            BuilderFactory DynamicBuilder()
+            {
+                var factory = DynamicBuilderFactoryRegister.FindFactory(valueType);
+                if (factory == null) throw new ArgumentException($"cannot find any builder for {valueType}");
+                return new BuilderFactory(factory.BuilderType, () => factory.Create(valueType));
             }
         }
 

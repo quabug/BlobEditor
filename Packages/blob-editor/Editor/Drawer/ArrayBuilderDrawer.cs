@@ -4,39 +4,57 @@ using UnityEngine;
 
 namespace Blob.Editor
 {
-    [CustomPropertyDrawer(typeof(ArrayBuilder<>), useForChildren: true)]
-    public class ArrayBuilderDrawer : PropertyDrawer
+    public abstract class ArrayBuilderDrawer : PropertyDrawer
     {
+        protected abstract Type FindElementType(SerializedProperty property);
+        protected abstract string ElementsPropertyName { get; }
+
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
-            var valueProperty = ValueProperty(property);
-            return EditorGUI.GetPropertyHeight(valueProperty, GUIContent.none, includeChildren: true);
+            return EditorGUI.GetPropertyHeight(FindElementsProperty(property), GUIContent.none, includeChildren: true);
         }
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
             property.serializedObject.Update();
-            var valueProperty = ValueProperty(property);
-            var elementType = property.GetObject().GetType().FindGenericArgumentsOf(typeof(ArrayBuilder<>))[0];
-            var builderType = elementType.FindBuilderType(null);
-            for (var i = 0; i < valueProperty.arraySize; i++)
+            var elementsProperty = FindElementsProperty(property);
+            var builderFactory = FindElementType(property).GetBuilderFactory(customBuilder: null);
+            for (var i = 0; i < elementsProperty.arraySize; i++)
             {
-                var elementProperty = valueProperty.GetArrayElementAtIndex(i);
+                var elementProperty = elementsProperty.GetArrayElementAtIndex(i);
                 var element = elementProperty.GetObject();
-                if (element == null || element.GetType() != builderType)
+                if (element == null || element.GetType() != builderFactory.BuilderType)
                 {
-                    elementProperty.managedReferenceValue = Activator.CreateInstance(builderType);
+                    elementProperty.managedReferenceValue = builderFactory.Create();
                     property.serializedObject.ApplyModifiedProperties();
                 }
             }
-            EditorGUI.PropertyField(position, valueProperty, label, includeChildren: true);
+            EditorGUI.PropertyField(position, elementsProperty, label, includeChildren: true);
             property.serializedObject.ApplyModifiedProperties();
         }
 
-        private SerializedProperty ValueProperty(SerializedProperty property)
+        private SerializedProperty FindElementsProperty(SerializedProperty property) => property.FindPropertyRelative(ElementsPropertyName);
+    }
+
+    [CustomPropertyDrawer(typeof(ArrayBuilder<>), useForChildren: true)]
+    public class GenericArrayBuilderDrawer : ArrayBuilderDrawer
+    {
+        protected override Type FindElementType(SerializedProperty property)
         {
-            var valuePath = $"{property.propertyPath}.{nameof(ArrayBuilder<int>.Value)}";
-            return property.serializedObject.FindProperty(valuePath);
+            return property.GetObject().GetType().FindGenericArgumentsOf(typeof(ArrayBuilder<>))[0];
         }
+
+        protected override string ElementsPropertyName => nameof(ArrayBuilder<int>.Value);
+    }
+
+    [CustomPropertyDrawer(typeof(DynamicArrayBuilder))]
+    public class DynamicArrayBuilderDrawer : ArrayBuilderDrawer
+    {
+        protected override Type FindElementType(SerializedProperty property)
+        {
+            return Type.GetType(property.FindPropertyRelative(nameof(DynamicArrayBuilder.ArrayElementType)).stringValue);
+        }
+
+        protected override string ElementsPropertyName => nameof(DynamicArrayBuilder.Value);
     }
 }

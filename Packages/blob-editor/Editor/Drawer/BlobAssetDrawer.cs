@@ -1,4 +1,3 @@
-using System;
 using UnityEditor;
 using UnityEngine;
 
@@ -18,12 +17,12 @@ namespace Blob.Editor
             property.serializedObject.Update();
 
             var valueType = fieldInfo.FieldType.GenericTypeArguments[0];
-            var builderType = valueType.FindBuilderType(customBuilder: null);
+            var builderFactory = valueType.GetBuilderFactory(customBuilder: null);
             property = property.FindPropertyRelative(nameof(BlobAsset<int>.Builder));
             var builder = property.GetObject();
-            if (builder == null || builder.GetType() != builderType)
+            if (builder == null || builder.GetType() != builderFactory.BuilderType)
             {
-                property.managedReferenceValue = Activator.CreateInstance(builderType);
+                property.managedReferenceValue = builderFactory.Create();
                 property.serializedObject.ApplyModifiedPropertiesWithoutUndo();
             }
 
