@@ -2,7 +2,8 @@
     "name": "Blob.Editor",
     "rootNamespace": "",
     "references": [
-        "GUID:2128cfde978da5c44bf90b8dda521ff6"
+        "GUID:2128cfde978da5c44bf90b8dda521ff6",
+        "GUID:734d92eba21c94caba915361bd5ac177"
     ],
     "includePlatforms": [
         "Editor"

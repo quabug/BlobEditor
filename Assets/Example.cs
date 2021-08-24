@@ -29,6 +29,6 @@ public struct ExampleBlob
     public Guid Guid;
     [CustomBuilder(typeof(ObjectName))] public BlobString GameObjectName;
     public AnimationCurveBlob AnimationCurve;
+    public ComponentType.AccessMode Enum;
+    public BlobArray<BlobArray<BlobArray<BlobPtr<BlobString>>>> Arrays;
 }
-
-public class ExampleBlobBuilder : BlobDataBuilder<ExampleBlob> {}

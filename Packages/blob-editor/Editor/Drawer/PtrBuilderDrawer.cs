@@ -1,13 +1,14 @@
 ﻿using System;
-using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
 namespace Blob.Editor
 {
-    [CustomPropertyDrawer(typeof(PtrBuilder<>), useForChildren: true)]
-    public class PtrBuilderDrawer : PropertyDrawer
+    public abstract class PtrBuilderDrawer : PropertyDrawer
     {
+        protected abstract string PtrBuilderPropertyName { get; }
+        protected abstract Type BlobType(SerializedProperty property);
+
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
             var valueProperty = ValueProperty(property);
@@ -18,18 +19,32 @@ namespace Blob.Editor
         {
             property.serializedObject.Update();
             var valueProperty = ValueProperty(property);
-            var valueType = property.GetObject().GetType().FindGenericArgumentsOf(typeof(PtrBuilder<>))[0];
-            var builderType = TypeCache.GetTypesDerivedFrom(typeof(Builder<>).MakeGenericType(valueType)).Single();
+            var valueType = BlobType(property);
+            var builderFactory = valueType.GetBuilderFactory(customBuilder: null);
             var value = valueProperty.GetObject();
-            if (value == null || value.GetType() != builderType) valueProperty.managedReferenceValue = Activator.CreateInstance(builderType);
+            if (value == null || value.GetType() != builderFactory.BuilderType) valueProperty.managedReferenceValue = builderFactory.Create();
             EditorGUI.PropertyField(position, valueProperty, label, includeChildren: true);
             property.serializedObject.ApplyModifiedProperties();
         }
 
         private SerializedProperty ValueProperty(SerializedProperty property)
         {
-            var valuePath = $"{property.propertyPath}.{nameof(PtrBuilder<int>.Value)}";
-            return property.serializedObject.FindProperty(valuePath);
+            return property.FindPropertyRelative(PtrBuilderPropertyName);
         }
+    }
+
+    [CustomPropertyDrawer(typeof(PtrBuilder<>), useForChildren: true)]
+    public class GenericBlobPtrDrawer : PtrBuilderDrawer
+    {
+        protected override string PtrBuilderPropertyName => nameof(PtrBuilder<int>.Value);
+        protected override Type BlobType(SerializedProperty property) => property.GetObject().GetType().FindGenericArgumentsOf(typeof(PtrBuilder<>))[0];
+    }
+
+    [CustomPropertyDrawer(typeof(DynamicBlobPtrDrawer))]
+    public class DynamicBlobPtrDrawer : PtrBuilderDrawer
+    {
+        protected override string PtrBuilderPropertyName => nameof(DynamicPtrBuilder.Value);
+        protected override Type BlobType(SerializedProperty property) =>
+            Type.GetType(property.FindPropertyRelative(nameof(DynamicPtrBuilder.DataType)).stringValue);
     }
 }
