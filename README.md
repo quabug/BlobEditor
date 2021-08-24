@@ -2,7 +2,7 @@
 
 Edit `BlobAsset` in Inspector and then easily create from code.
 
-![image](https://user-images.githubusercontent.com/683655/129909694-e2a48396-3bc4-4842-9e51-9c1732a6d8af.png)
+![image](https://user-images.githubusercontent.com/683655/130668171-ea822e22-c49d-438c-b6b4-6211253df859.png)
 
 ## Upgrade Note
 ⚠️ v1.2: upgrade from version 1.1 will lose data, you should either recreate data manually or use `BlobAssetV1`
@@ -52,8 +52,6 @@ struct Blob
 {
     public int Int;
     public BlobString String;
-    
-    public class Builder : BlobDataBuilder<Blob> {}
 }
 
 public class BlobStructureComponent : MonoBehaviour
