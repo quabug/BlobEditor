@@ -47,6 +47,17 @@ public class StringGuid : Builder<BlobString>
 }
 
 [Serializable]
+public class GuidViewer : Viewer<Guid>
+{
+    public string Guid = System.Guid.NewGuid().ToString();
+
+    public override void View(ref Guid data)
+    {
+        Guid = data.ToString();
+    }
+}
+
+[Serializable]
 public class ObjectName : Builder<BlobString>
 {
     public GameObject GameObject;
