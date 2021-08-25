@@ -7,6 +7,8 @@ namespace Blob
     [Serializable]
     public class BlobViewer
     {
+        [SerializeField] public bool Writable = false;
+        [SerializeField] internal string TypeName = "(Empty)";
         [SerializeReference, UnboxSingleProperty, UnityDrawProperty] internal IViewer Viewer;
 
         public unsafe void View<T>(T* dataPtr) where T : unmanaged => UnsafeView(new IntPtr(dataPtr), typeof(T));
@@ -14,6 +16,7 @@ namespace Blob
         public void UnsafeView(IntPtr dataPtr, Type type)
         {
 #if UNITY_EDITOR
+            TypeName = type.ToReadableName();
             var viewerType = type.FindViewerType();
             if (Viewer == null || Viewer.GetType() != viewerType)
                 Viewer = (IViewer) Activator.CreateInstance(viewerType);
