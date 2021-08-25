@@ -1,11 +1,12 @@
 # BlobEditor
 
-Edit `BlobAsset` in Inspector and then easily create from code.
+- **BlobBuilder**: Edit `BlobAsset` in _Inspector_ and then easily create from code.
+- **BlobViewer**: Display `Blob` data in _Inspector_ at editor-playing-mode.
+![image](https://user-images.githubusercontent.com/683655/130836799-34c39606-e70f-4ac7-afd5-5ab087e1f797.png)
 
-![image](https://user-images.githubusercontent.com/683655/130668171-ea822e22-c49d-438c-b6b4-6211253df859.png)
 
 ## Upgrade Note
-⚠️ v1.2: upgrade from version 1.1 will lose data, you should either recreate data manually or use `BlobAssetV1`
+⚠️ upgrade from version 1.1 will lose data, you should either recreate data manually or use `BlobAssetV1`
 
 ## Installation
 - (Recommend) [OpenUPM](https://openupm.com/packages/com.quabug.blob-editor/): `openupm add com.quabug.blob-editor`
@@ -28,7 +29,9 @@ Edit `BlobAsset` in Inspector and then easily create from code.
 }
 ```
 
-## Usage
+---
+## **BlobBuilder**
+_Edit and build `BlobAsset` from inspector_
 
 ### `BlobAsset<>`
 
@@ -128,5 +131,40 @@ public struct Blob
 {
     public BlobString String; // will use `StringBuilder` by default
     [CustomBuilder(typeof(ObjectName))] public BlobString ObjectName;
+}
+```
+
+---
+## **BlobViewer**
+_Display `Blob` data in Inspector at editor-playing-mode_
+
+### `BlobViewer<>`
+``` c#
+public class BlobViewerComponent : MonoBehaviour
+{
+    public BlobViewer Viewer;
+
+    private void Awake()
+    {
+        // set blob into viewer to inspect
+        BlobAssetReference<SomeBlob> someBlob = ...;
+        Viewer.View(someBlob);
+    }
+}
+```
+
+### Extend viewer for new type
+``` c#
+[Serializable]
+public class GuidViewer : Viewer<Guid /* data type in blob */>
+{
+    // declare a serialized field for unity to show in inspector.
+    public string Guid = System.Guid.NewGuid().ToString();
+
+    // assign value from blob data to serialized field in `View` method.
+    public override void View(ref Guid data)
+    {
+        Guid = data.ToString();
+    }
 }
 ```
