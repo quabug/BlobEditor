@@ -13,7 +13,7 @@ Edit `BlobAsset` in Inspector and then easily create from code.
 ```
 {
   "dependencies": {
-    "com.quabug.blob-editor": "1.1.0",
+    "com.quabug.blob-editor": "1.3.0",
     ...
   },
   "scopedRegistries": [
