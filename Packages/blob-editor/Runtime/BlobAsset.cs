@@ -9,7 +9,7 @@ namespace Blob
     [Serializable]
     public class BlobAsset<T> where T : unmanaged
     {
-        [SerializeReference] internal IBuilder Builder;
+        [SerializeReference, UnboxSinglePropertyBuilder, UnityDrawProperty] internal IBuilder Builder;
 
         BlobAssetReference<T> _blobAssetReference;
 

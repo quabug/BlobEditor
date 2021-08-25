@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.5748171, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657815, g: 0.49641192, b: 0.57481617, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -882,6 +882,8 @@ MonoBehaviour:
         - Guid
         - GameObjectName
         - AnimationCurve
+        - Enum
+        - Arrays
         Builders:
         - id: 1
         - id: 2
@@ -892,6 +894,8 @@ MonoBehaviour:
         - id: 7
         - id: 8
         - id: 9
+        - id: 10
+        - id: 11
     00000001:
       type: {class: Int32Builder, ns: Blob.Primitive, asm: Blob.Builder}
       data:
@@ -911,20 +915,20 @@ MonoBehaviour:
       type: {class: double2ArrayBuilder, ns: Blob.Mathematics, asm: Blob.Builder}
       data:
         Value:
-        - id: 10
-        - id: 11
+        - id: 12
+        - id: 13
     00000005:
       type: {class: StringArrayBuilder, ns: Blob, asm: Blob.Builder}
       data:
         Value:
-        - id: 12
-        - id: 13
         - id: 14
+        - id: 15
+        - id: 16
     00000006:
       type: {class: Int64PtrBuilder, ns: Blob.Primitive, asm: Blob.Builder}
       data:
         Value:
-          id: 15
+          id: 17
     00000007:
       type: {class: GuidBuilder, ns: , asm: Assembly-CSharp}
       data:
@@ -961,33 +965,75 @@ MonoBehaviour:
           m_PostInfinity: 2
           m_RotationOrder: 4
     0000000A:
+      type: {class: DynamicIntEnumBuilder, ns: Blob, asm: Blob.Builder}
+      data:
+        EnumTypeName: Unity.Entities.ComponentType+AccessMode, Unity.Entities, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+        Value: 0
+    0000000B:
+      type: {class: DynamicArrayBuilder, ns: Blob, asm: Blob.Builder}
+      data:
+        ArrayElementType: Unity.Entities.BlobArray`1[[Unity.Entities.BlobArray`1[[Unity.Entities.BlobPtr`1[[Unity.Entities.BlobString,
+          Unity.Entities, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]],
+          Unity.Entities, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]],
+          Unity.Entities, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]],
+          Unity.Entities, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+        Value:
+        - id: 18
+    0000000C:
       type: {class: double2Builder, ns: Blob.Mathematics, asm: Blob.Builder}
       data:
         Value:
           x: 11
           y: 22
-    0000000B:
+    0000000D:
       type: {class: double2Builder, ns: Blob.Mathematics, asm: Blob.Builder}
       data:
         Value:
           x: 33
           y: 44
-    0000000C:
-      type: {class: StringBuilder, ns: Blob, asm: Blob.Builder}
-      data:
-        Value: abc
-    0000000D:
-      type: {class: StringBuilder, ns: Blob, asm: Blob.Builder}
-      data:
-        Value: deF
     0000000E:
       type: {class: StringBuilder, ns: Blob, asm: Blob.Builder}
       data:
-        Value: FFFFF
+        Value: abc
     0000000F:
+      type: {class: StringBuilder, ns: Blob, asm: Blob.Builder}
+      data:
+        Value: deF
+    00000010:
+      type: {class: StringBuilder, ns: Blob, asm: Blob.Builder}
+      data:
+        Value: FFFFF
+    00000011:
       type: {class: Int64Builder, ns: Blob.Primitive, asm: Blob.Builder}
       data:
         Value: 1239
+    00000012:
+      type: {class: DynamicArrayBuilder, ns: Blob, asm: Blob.Builder}
+      data:
+        ArrayElementType: Unity.Entities.BlobArray`1[[Unity.Entities.BlobPtr`1[[Unity.Entities.BlobString,
+          Unity.Entities, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]],
+          Unity.Entities, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]],
+          Unity.Entities, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+        Value:
+        - id: 19
+    00000013:
+      type: {class: DynamicArrayBuilder, ns: Blob, asm: Blob.Builder}
+      data:
+        ArrayElementType: Unity.Entities.BlobPtr`1[[Unity.Entities.BlobString, Unity.Entities,
+          Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], Unity.Entities,
+          Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+        Value:
+        - id: 20
+    00000014:
+      type: {class: StringPtrBuilder, ns: Blob, asm: Blob.Builder}
+      data:
+        Value:
+          id: 21
+    00000015:
+      type: {class: StringBuilder, ns: Blob, asm: Blob.Builder}
+      data:
+        Value: fdfdaf
 --- !u!4 &1805661909
 Transform:
   m_ObjectHideFlags: 0
