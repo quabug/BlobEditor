@@ -1,8 +1,7 @@
 # BlobEditor
-
+![image](https://user-images.githubusercontent.com/683655/130836799-34c39606-e70f-4ac7-afd5-5ab087e1f797.png)
 - **BlobBuilder**: Edit `BlobAsset` in _Inspector_ and then easily create from code.
 - **BlobViewer**: Display `Blob` data in _Inspector_ at editor-playing-mode.
-![image](https://user-images.githubusercontent.com/683655/130836799-34c39606-e70f-4ac7-afd5-5ab087e1f797.png)
 
 
 ## Upgrade Note
