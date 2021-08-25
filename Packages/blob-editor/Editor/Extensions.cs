@@ -215,17 +215,17 @@ namespace Blob.Editor
             throw new ArgumentException();
         }
 
-        public static SerializedProperty FindProperBuilderProperty(this SerializedProperty builder)
+        public static SerializedProperty FindProperProperty(this SerializedProperty self)
         {
-            var builderType = builder?.GetObject()?.GetType();
-            var customDrawer = builderType == null ? null : builder.GetDrawerTypeForPropertyAndType(builderType);
-            if (builderType != null && customDrawer == null)
+            var type = self?.GetObject()?.GetType();
+            var customDrawer = type == null ? null : self.GetDrawerTypeForPropertyAndType(type);
+            if (type != null && customDrawer == null)
             {
-                var children = builder.GetVisibleChildren().ToArray();
+                var children = self.GetVisibleChildren().ToArray();
                 if (children.Length == 1) return children[0];
             }
 
-            return builder;
+            return self;
         }
 
         public static IEnumerable<T> Yield<T>(this T value)
@@ -263,21 +263,6 @@ namespace Blob.Editor
                 if (factory == null) throw new ArgumentException($"cannot find any builder for {valueType}");
                 return new BuilderFactory(factory.BuilderType, () => factory.Create(valueType));
             }
-        }
-
-        public static string ToReadableFullName([NotNull] this Type type)
-        {
-            return type.IsGenericType ? Regex.Replace(type.ToString(), @"(\w+)`\d+\[(.*)\]", "$1<$2>") : type.ToString();
-        }
-
-        public static string ToReadableName([NotNull] this Type type)
-        {
-            if (!type.IsGenericType) return type.Name;
-            var name = type.Name.Remove(type.Name.LastIndexOf('`'));
-            name += "<";
-            name += string.Join(",", type.GenericTypeArguments.Select(t => t.ToReadableName()));
-            name += ">";
-            return name;
         }
     }
 

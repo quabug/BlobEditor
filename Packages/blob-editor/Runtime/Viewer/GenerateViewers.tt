@@ -1,0 +1,30 @@
+<#@ template language="C#" #>
+<#@ output extension=".cs" #>
+
+<#@ include file="../Primitives.ttinclude" #>
+<#@ include file="../Mathematics.ttinclude" #><#@ assembly name="System.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" #><#@ assembly name="System.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" #>
+<#@ import namespace="System.Linq" #>
+
+namespace Blob
+{
+
+<#
+    foreach (var type in Primitives) GenerateViewers(type);
+#>
+
+#if ENABLE_UNITY_MATHEMATICS
+<#
+    foreach (var type in Mathematics) GenerateViewers(type);
+#>
+#endif
+
+}
+
+<#+
+    void GenerateViewers(Type type)
+    {
+#>
+    public class <#= type.Name #>Viewer : Blob.PlainDataViewer<<#= type #>> {}
+<#+
+    }
+#>

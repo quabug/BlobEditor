@@ -8,6 +8,7 @@ using UnityEngine;
 public class Example : MonoBehaviour
 {
     public BlobAsset<ExampleBlob> Blob;
+    public BlobViewer Viewer;
 
     private void Awake()
     {
@@ -15,6 +16,8 @@ public class Example : MonoBehaviour
         BlobAssetReference<ExampleBlob> blob = Blob.Reference;
         // or use blob value directly
         var _ = Blob.Value.Float3;
+
+        Viewer.View(Blob.Reference);
     }
 }
 

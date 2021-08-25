@@ -48,7 +48,7 @@ namespace Blob
     public class BlobDataBuilder<T> : Builder<T> where T : unmanaged
     {
         [HideInInspector] public string[] FieldNames;
-        [SerializeReference, UnboxSinglePropertyBuilder, UnityDrawProperty] public IBuilder[] Builders;
+        [SerializeReference, UnboxSingleProperty, UnityDrawProperty] public IBuilder[] Builders;
 
         public override unsafe void Build(BlobBuilder builder, ref T data)
         {
@@ -65,7 +65,7 @@ namespace Blob
     [Serializable]
     public class ArrayBuilder<T> : Builder<BlobArray<T>> where T : unmanaged
     {
-        [SerializeReference, UnboxSinglePropertyBuilder, UnityDrawProperty] public IBuilder[] Value;
+        [SerializeReference, UnboxSingleProperty, UnityDrawProperty] public IBuilder[] Value;
 
         public override void Build(BlobBuilder builder, ref BlobArray<T> data)
         {
@@ -91,7 +91,7 @@ namespace Blob
     [Serializable]
     public class PtrBuilder<T> : Builder<BlobPtr<T>> where T : unmanaged
     {
-        [SerializeReference, UnboxSinglePropertyBuilder, UnityDrawProperty] public IBuilder Value;
+        [SerializeReference, UnboxSingleProperty, UnityDrawProperty] public IBuilder Value;
 
         public override unsafe void Build(BlobBuilder builder, ref BlobPtr<T> data)
         {

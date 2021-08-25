@@ -315,7 +315,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1351734625
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -491,7 +491,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1386176992
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -642,7 +642,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1534642738
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -767,7 +767,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1645349337
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -865,6 +865,9 @@ MonoBehaviour:
   Blob:
     Builder:
       id: 0
+  Viewer:
+    Viewer:
+      id: 1
   references:
     version: 1
     00000000:
@@ -885,7 +888,6 @@ MonoBehaviour:
         - Enum
         - Arrays
         Builders:
-        - id: 1
         - id: 2
         - id: 3
         - id: 4
@@ -896,48 +898,51 @@ MonoBehaviour:
         - id: 9
         - id: 10
         - id: 11
+        - id: 12
     00000001:
+      type: {class: , ns: , asm: }
+    00000002:
       type: {class: Int32Builder, ns: Blob.Primitive, asm: Blob.Builder}
       data:
         Value: 1
-    00000002:
+    00000003:
       type: {class: float3Builder, ns: Blob.Mathematics, asm: Blob.Builder}
       data:
         Value:
           x: 2
           y: 3
           z: 4
-    00000003:
+    00000004:
       type: {class: StringBuilder, ns: Blob, asm: Blob.Builder}
       data:
         Value: 5
-    00000004:
+    00000005:
       type: {class: double2ArrayBuilder, ns: Blob.Mathematics, asm: Blob.Builder}
       data:
         Value:
-        - id: 12
         - id: 13
-    00000005:
+        - id: 14
+    00000006:
       type: {class: StringArrayBuilder, ns: Blob, asm: Blob.Builder}
       data:
         Value:
-        - id: 14
         - id: 15
         - id: 16
-    00000006:
+        - id: 17
+    00000007:
       type: {class: Int64PtrBuilder, ns: Blob.Primitive, asm: Blob.Builder}
       data:
         Value:
-          id: 17
-    00000007:
+          id: 18
+    00000008:
       type: {class: GuidBuilder, ns: , asm: Assembly-CSharp}
       data:
         Guid: c0a52acf-55e8-4fe9-86b9-f926d4d9755a
-    00000008:
+    00000009:
       type: {class: ObjectName, ns: , asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 1805661907}
-    00000009:
+    0000000A:
       type: {class: AnimationCurveBlobBuilder, ns: Blob, asm: Blob.Builder}
       data:
         Value:
@@ -964,13 +969,13 @@ MonoBehaviour:
           m_PreInfinity: 2
           m_PostInfinity: 2
           m_RotationOrder: 4
-    0000000A:
+    0000000B:
       type: {class: DynamicIntEnumBuilder, ns: Blob, asm: Blob.Builder}
       data:
         EnumTypeName: Unity.Entities.ComponentType+AccessMode, Unity.Entities, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
         Value: 0
-    0000000B:
+    0000000C:
       type: {class: DynamicArrayBuilder, ns: Blob, asm: Blob.Builder}
       data:
         ArrayElementType: Unity.Entities.BlobArray`1[[Unity.Entities.BlobArray`1[[Unity.Entities.BlobPtr`1[[Unity.Entities.BlobString,
@@ -979,36 +984,36 @@ MonoBehaviour:
           Unity.Entities, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]],
           Unity.Entities, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
         Value:
-        - id: 18
-    0000000C:
+        - id: 19
+    0000000D:
       type: {class: double2Builder, ns: Blob.Mathematics, asm: Blob.Builder}
       data:
         Value:
           x: 11
           y: 22
-    0000000D:
+    0000000E:
       type: {class: double2Builder, ns: Blob.Mathematics, asm: Blob.Builder}
       data:
         Value:
           x: 33
           y: 44
-    0000000E:
-      type: {class: StringBuilder, ns: Blob, asm: Blob.Builder}
-      data:
-        Value: abc
     0000000F:
       type: {class: StringBuilder, ns: Blob, asm: Blob.Builder}
       data:
-        Value: deF
+        Value: abc
     00000010:
       type: {class: StringBuilder, ns: Blob, asm: Blob.Builder}
       data:
-        Value: FFFFF
+        Value: deF
     00000011:
+      type: {class: StringBuilder, ns: Blob, asm: Blob.Builder}
+      data:
+        Value: FFFFF
+    00000012:
       type: {class: Int64Builder, ns: Blob.Primitive, asm: Blob.Builder}
       data:
         Value: 1239
-    00000012:
+    00000013:
       type: {class: DynamicArrayBuilder, ns: Blob, asm: Blob.Builder}
       data:
         ArrayElementType: Unity.Entities.BlobArray`1[[Unity.Entities.BlobPtr`1[[Unity.Entities.BlobString,
@@ -1016,21 +1021,21 @@ MonoBehaviour:
           Unity.Entities, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]],
           Unity.Entities, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
         Value:
-        - id: 19
-    00000013:
+        - id: 20
+    00000014:
       type: {class: DynamicArrayBuilder, ns: Blob, asm: Blob.Builder}
       data:
         ArrayElementType: Unity.Entities.BlobPtr`1[[Unity.Entities.BlobString, Unity.Entities,
           Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], Unity.Entities,
           Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
         Value:
-        - id: 20
-    00000014:
+        - id: 21
+    00000015:
       type: {class: StringPtrBuilder, ns: Blob, asm: Blob.Builder}
       data:
         Value:
-          id: 21
-    00000015:
+          id: 22
+    00000016:
       type: {class: StringBuilder, ns: Blob, asm: Blob.Builder}
       data:
         Value: fdfdaf
@@ -1064,7 +1069,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2106881378
 MonoBehaviour:
   m_ObjectHideFlags: 0

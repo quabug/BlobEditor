@@ -92,7 +92,7 @@ namespace Blob
     {
         public string BlobDataType;
         public string[] FieldNames;
-        [SerializeReference, UnboxSinglePropertyBuilder, UnityDrawProperty] public IBuilder[] Builders;
+        [SerializeReference, UnboxSingleProperty, UnityDrawProperty] public IBuilder[] Builders;
 
         public void Build(BlobBuilder builder, IntPtr dataPtr)
         {
@@ -116,7 +116,7 @@ namespace Blob
     public class DynamicArrayBuilder : IBuilder
     {
         public string ArrayElementType;
-        [SerializeReference, UnboxSinglePropertyBuilder, UnityDrawProperty] public IBuilder[] Value;
+        [SerializeReference, UnboxSingleProperty, UnityDrawProperty] public IBuilder[] Value;
 
         public void Build(BlobBuilder builder, IntPtr dataPtr)
         {
@@ -137,7 +137,7 @@ namespace Blob
     public class DynamicPtrBuilder : IBuilder
     {
         public string DataType;
-        [SerializeReference, UnboxSinglePropertyBuilder, UnityDrawProperty] public IBuilder Value;
+        [SerializeReference, UnboxSingleProperty, UnityDrawProperty] public IBuilder Value;
 
         public void Build(BlobBuilder builder, IntPtr dataPtr)
         {

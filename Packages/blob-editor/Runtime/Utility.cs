@@ -1,5 +1,8 @@
 using System;
+using System.Linq;
 using System.Reflection;
+using System.Text.RegularExpressions;
+using JetBrains.Annotations;
 using Unity.Collections.LowLevel.Unsafe;
 using Unity.Entities;
 
@@ -34,6 +37,21 @@ namespace Blob
             ref var data = ref UnsafeUtility.AsRef<BlobPtr<T>>(dataPtr.ToPointer());
             ref var blobPtr = ref builder.Allocate(ref data);
             return new IntPtr(UnsafeUtility.AddressOf(ref blobPtr));
+        }
+
+        public static string ToReadableFullName([NotNull] this Type type)
+        {
+            return type.IsGenericType ? Regex.Replace(type.ToString(), @"(\w+)`\d+\[(.*)\]", "$1<$2>") : type.ToString();
+        }
+
+        public static string ToReadableName([NotNull] this Type type)
+        {
+            if (!type.IsGenericType) return type.Name;
+            var name = type.Name.Remove(type.Name.LastIndexOf('`'));
+            name += "<";
+            name += string.Join(",", type.GenericTypeArguments.Select(t => t.ToReadableName()));
+            name += ">";
+            return name;
         }
     }
 }
