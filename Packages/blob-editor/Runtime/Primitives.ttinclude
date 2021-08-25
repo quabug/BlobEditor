@@ -1,0 +1,5 @@
+<#@ import namespace="System.Linq" #>
+
+<#+
+    Type[] Primitives = typeof(int).Assembly.GetTypes().Where(type => type.IsPrimitive).ToArray();
+#>

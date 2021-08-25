@@ -1,3 +1,24 @@
 {
-	"name": "Blob.Viewer"
+    "name": "Blob.Viewer",
+    "rootNamespace": "",
+    "references": [
+        "GUID:6d84eb5386377416e93c122a00485b68",
+        "GUID:734d92eba21c94caba915361bd5ac177",
+        "GUID:d8b63aba1907145bea998dd612889d6b"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "com.unity.mathematics",
+            "expression": "1.0.1",
+            "define": "ENABLE_UNITY_MATHEMATICS"
+        }
+    ],
+    "noEngineReferences": false
 }

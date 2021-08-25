@@ -2,18 +2,13 @@
 <#@ output extension=".cs" #>
 
 <#@ include file="GenerateBuilders.ttinclude" #>
+<#@ include file="../Primitives.ttinclude" #>
 
 namespace Blob.Primitive
 {
 
 <#
-    foreach (var type in typeof(int).Assembly.GetTypes())
-    {
-        if (type.IsPrimitive)
-        {
-            GenerateBuilders(type);
-        }
-    }
+    foreach (var type in Primitives) GenerateBuilders(type);
 #>
 
 }
