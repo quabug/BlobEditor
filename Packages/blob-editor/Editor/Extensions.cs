@@ -215,17 +215,17 @@ namespace Blob.Editor
             throw new ArgumentException();
         }
 
-        public static SerializedProperty FindProperBuilderProperty(this SerializedProperty builder)
+        public static SerializedProperty FindProperProperty(this SerializedProperty self)
         {
-            var builderType = builder?.GetObject()?.GetType();
-            var customDrawer = builderType == null ? null : builder.GetDrawerTypeForPropertyAndType(builderType);
-            if (builderType != null && customDrawer == null)
+            var type = self?.GetObject()?.GetType();
+            var customDrawer = type == null ? null : self.GetDrawerTypeForPropertyAndType(type);
+            if (type != null && customDrawer == null)
             {
-                var children = builder.GetVisibleChildren().ToArray();
+                var children = self.GetVisibleChildren().ToArray();
                 if (children.Length == 1) return children[0];
             }
 
-            return builder;
+            return self;
         }
 
         public static IEnumerable<T> Yield<T>(this T value)

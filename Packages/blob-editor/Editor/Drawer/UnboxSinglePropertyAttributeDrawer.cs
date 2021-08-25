@@ -3,18 +3,18 @@ using UnityEngine;
 
 namespace Blob.Editor
 {
-    [CustomMultiPropertyDrawer(typeof(UnboxSinglePropertyBuilderAttribute))]
-    public class UnboxSinglePropertyBuilderAttributeDrawer : BaseMultiPropertyDrawer
+    [CustomMultiPropertyDrawer(typeof(UnboxSinglePropertyAttribute))]
+    public class UnboxSinglePropertyAttributeDrawer : BaseMultiPropertyDrawer
     {
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
-            property = property.FindProperBuilderProperty();
+            property = property.FindProperProperty();
             return base.GetPropertyHeight(property, label);
         }
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
-            property = property.FindProperBuilderProperty();
+            property = property.FindProperProperty();
             base.OnGUI(position, property, label);
         }
     }
