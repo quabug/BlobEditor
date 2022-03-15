@@ -16,7 +16,6 @@ namespace Blob.Editor
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
-            property.serializedObject.Update();
             var elementsProperty = FindElementsProperty(property);
             var builderFactory = FindElementType(property).GetBuilderFactory(customBuilder: null);
             for (var i = 0; i < elementsProperty.arraySize; i++)

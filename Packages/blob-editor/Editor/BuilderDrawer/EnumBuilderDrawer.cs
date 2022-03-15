@@ -16,7 +16,6 @@ namespace Blob.Editor
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
-            property.serializedObject.Update();
             var enumType = Type.GetType(property.FindPropertyRelative(nameof(DynamicEnumBuilder<int>.EnumTypeName)).stringValue);
             var valueProperty = property.FindPropertyRelative(nameof(DynamicEnumBuilder<int>.Value));
             var value = EditorGUI.EnumPopup(position, label, (Enum)Enum.ToObject(enumType, GetValue(valueProperty)));
