@@ -1,3 +1,4 @@
+[![openupm](https://img.shields.io/npm/v/com.quabug.blob-editor?label=openupm&registry_uri=https://package.openupm.com)](https://openupm.com/packages/com.quabug.blob-editor/)
 # BlobEditor
 ![image](https://user-images.githubusercontent.com/683655/130836799-34c39606-e70f-4ac7-afd5-5ab087e1f797.png)
 - [**BlobBuilder**](README.md#blobbuilder): Edit `BlobAsset` in _Inspector_ and then easily create from code.
