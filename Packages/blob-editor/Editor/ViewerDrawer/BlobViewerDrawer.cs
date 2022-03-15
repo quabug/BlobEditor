@@ -14,7 +14,6 @@ namespace Blob.Editor
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
-            property.serializedObject.Update();
             var typeName = property.FindPropertyRelative(nameof(BlobViewer.TypeName)).stringValue;
             var writable = property.FindPropertyRelative(nameof(BlobViewer.Writable)).boolValue;
             var enabled = GUI.enabled;

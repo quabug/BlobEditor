@@ -1,7 +1,7 @@
 {
   "name": "com.quabug.blob-editor",
   "description": "Inspector-editor of blob asset",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "unity": "2020.3",
   "displayName": "BlobEditor",
   "dependencies": {

@@ -14,8 +14,6 @@ namespace Blob.Editor
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
-            property.serializedObject.Update();
-
             var valueType = fieldInfo.FieldType.GenericTypeArguments[0];
             var builderFactory = valueType.GetBuilderFactory(customBuilder: null);
             property = property.FindPropertyRelative(nameof(BlobAsset<int>.Builder));
