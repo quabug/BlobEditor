@@ -11,9 +11,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: quabug/create-upm-release@v1
+    - name: Create Release for OpenUPM
+      id: create_release
+      uses: quabug/create-upm-release@v2
+      with:
+        target: main
+        upm_tag_prefix: v
+        upm_package_path: Packages/blob-editor
+        create_unitypackage: true
+        unitypackage_name: BlobEditor
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upm_package_path: Packages/blob-editor
-        upm_tag_prefix: v
